@@ -75,9 +75,56 @@
             object-fit: cover;
             z-index: -2;
         }
+        /* Vị trí cụm nút góc trên phải */
+        .top-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Nút hình tròn mờ kính */
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .icon-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Chế độ Tối (Dark Mode) cho Card */
+        body.dark-mode .card {
+            background: rgba(20, 20, 25, 0.85);
+        }
+   .bg-media {
+     width: 100vw;
+     height: 100vh;
+     object-fit: cover;
+     z-index: -2;
+   }
     </style>
 </head>
 <body>
+
+    <!-- Cụm nút góc trên bên phải -->
+    <div class="top-controls">
+        <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">🌓</button>
+        <button id="settingsBtn" class="icon-btn" title="Cài đặt">⚙️</button>
+    </div>
     
     <!-- Sửa 3: Nếu trên GitHub bạn đã đổi tên file thành mainmenubackground.mp4 thì sửa src tương ứng -->
     <video autoplay muted loop playsinline id="myVideo">
@@ -141,7 +188,7 @@
             }
         }
         function createParticles(e) {
-           if (Math.random() < 0.2) {
+           if (Math.random() < 0.3) {
         particles.push(new Particle(e.clientX, e.clientY));
             }
         }
@@ -166,6 +213,18 @@
         });
 
         animate();
+        
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Xử lý nút Cài đặt (Hiển thị thông báo tạm)
+        const settingsBtn = document.getElementById('settingsBtn');
+        settingsBtn.addEventListener('click', function() {
+            alert('Chức năng cài đặt đang được phát triển!');
+        });
+        
     </script>
 </body>
 </html>
