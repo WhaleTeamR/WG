@@ -11,14 +11,25 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        body {
-            background-color: #f4f6f9;
-            color: #333;
+   body {
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            color: #333;
+        }
+
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
         }
         .card {
             background: #ffffff;
@@ -54,6 +65,9 @@
     </style>
 </head>
 <body>
+    <video autoplay muted loop id="myVideo">
+        <source src="mainmenubackground.mp4" type="video/mp4">
+    </video>
 
     <div class="card">
         <h1>Chào mừng đến với trang web của SW! 👋</h1>
