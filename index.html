@@ -116,6 +116,23 @@
      object-fit: cover;
      z-index: -2;
    }
+    /* Đổi màu nút Discord sang đen/tối */
+        body.dark-mode .btn {
+            background: rgba(30, 30, 35, 0.9);
+            color: #ffffff;
+        }
+        body.dark-mode .btn:hover {
+            background: rgba(60, 60, 65, 1);
+        }
+
+        /* Đổi màu 2 nút góc trên sang đen/tối */
+        body.dark-mode .icon-btn {
+            background: rgba(30, 30, 35, 0.85);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        body.dark-mode .icon-btn:hover {
+            background: rgba(60, 60, 65, 1);
+        }
     </style>
 </head>
 <body>
