@@ -46,6 +46,13 @@
             color: #1a73e8;
             margin-bottom: 12px;
             font-size: 28px;
+            transition: all 0.4s ease; /* <-- Thêm dòng này vào h1 cũ */
+        }
+
+        /* Thêm khối này xuống ngay bên dưới h1 cũ */
+        h1:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
         }
         p {
             color: #444;
@@ -136,6 +143,10 @@
         body.dark-mode p {
             color: #b0b0b0; /* Đổi thành màu xám sáng hoặc #ffffff nếu thích chữ trắng hẳn */
         }
+        /* Đổi màu tiêu đề chính sang xanh nước biển sáng khi ở chế độ tối */
+        body.dark-mode h1 {
+            color: #4da6ff;
+        }
     }
     </style>
 </head>
@@ -155,7 +166,7 @@
     <canvas id="particle-canvas"></canvas>
 
     <div class="card">
-        <h1>CHÀO MỪNG ĐẾN VỚI WhaleTeam_R! 👋</h1>
+        <h1>CHÀO MỪNG ĐẾN VỚI WhaleTeam_R!</h1>
         <p>Web hiện đang trong quá trình hoàn thành!</p>
         <a href="https://discord.gg/JBVCSDFp2" target="_blank" class="btn">Tham gia sever Discord của chúng tôi</a>
     </div>
