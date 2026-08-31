@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Menu - WhaleTeam_R</title>
@@ -10,7 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         /* NỀN TOÀN TRANG WIDGET */
@@ -36,8 +38,6 @@
             font-weight: bold;
             color: #f0f0f0;
             margin-bottom: 25px;
-            
-            /* Đổ bóng 3D + hiệu ứng nổi */
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -71,7 +71,7 @@
         }
 
         .sidebar-title {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
             color: #8e9297;
             margin-bottom: 10px;
@@ -96,6 +96,7 @@
             background-color: #10b981; /* Màu xanh lá đặc trưng */
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transition: all 0.4s ease;
         }
 
         /* Rê chuột vào các nút bình thường */
@@ -103,6 +104,10 @@
             background-color: #2b2d31;
             color: #ffffff;
             transform: translateX(4px);
+        }
+        .nav-btn.active:hover {
+            transform: scale(1.025) ;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         /* CỘT PHẢI - NỘI DUNG CHÍNH (CONTENT AREA) */
