@@ -44,7 +44,8 @@
             text-align: center;
             position: relative;
             z-index: 1;
-            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1),
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
         }
         .card:hover {
             transform: scale(1.025) ;
@@ -54,11 +55,9 @@
             color: #1a73e8;
             margin-bottom: 12px;
             font-size: 24px;
-            transition: all 0.4s ease; /* <-- Thêm dòng này vào h1 cũ */
+            transition: all 0.4s ease;
         }
        
-
-        /* Thêm khối này xuống ngay bên dưới h1 cũ */
         h1:hover {
             transform: scale(1.05);
             text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
@@ -97,7 +96,6 @@
             object-fit: cover;
             z-index: -2;
         }
-        /* Vị trí cụm nút góc trên phải */
         .top-controls {
             position: fixed;
             top: 20px;
@@ -107,7 +105,7 @@
             gap: 12px;
         }
 
-        /* Nút hình tròn mờ kính */
+
         .icon-btn {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
@@ -128,7 +126,7 @@
             background: rgba(255, 255, 255, 1);
         }
 
-        /* Chế độ Tối (Dark Mode) cho Card */
+        
         body.dark-mode .card {
             background: rgba(20, 20, 25, 0.85);
         }
@@ -139,7 +137,7 @@
      z-index: -2;
    }
 
-        /* Đổi màu 2 nút góc trên sang đen/tối */
+        
         body.dark-mode .icon-btn {
             background: rgba(30, 30, 35, 0.85);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -147,11 +145,11 @@
         body.dark-mode .icon-btn:hover {
             background: rgba(60, 60, 65, 1);
         }
-        /* Đổi màu chữ mô tả trong card thành màu sáng khi ở chế độ tối */
+        
         body.dark-mode p {
-            color: #b0b0b0; /* Đổi thành màu xám sáng hoặc #ffffff nếu thích chữ trắng hẳn */
+            color: #b0b0b0;
         }
-        /* Đổi màu tiêu đề chính sang xanh nước biển sáng khi ở chế độ tối */
+        
         body.dark-mode h1 {
             color: #4da6ff;
         }
@@ -160,13 +158,13 @@
 </head>
 <body>
 
-    <!-- Cụm nút góc trên bên phải -->
+    
     <div class="top-controls">
         <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">🌓</button>
         <button id="settingsBtn" class="icon-btn" title="Cài đặt">⚙️</button>
     </div>
     
-    <!-- Sửa 3: Nếu trên GitHub bạn đã đổi tên file thành mainmenubackground.mp4 thì sửa src tương ứng -->
+    
     <video autoplay muted loop playsinline preload="auto" id="myVideo">
         <source src="WhaleDreams .mp4" type="video/mp4">
     </video>
@@ -192,9 +190,9 @@
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 10 + 6; // Tăng kích thước cho rõ dáng bong bóng
+                this.size = Math.random() * 10 + 6; 
                 this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * -2 - 0.5; // Bong bóng nhẹ nhàng trôi lên
+                this.speedY = Math.random() * -2 - 0.5;
                 this.life = 70;
             }
             update() {
@@ -204,18 +202,18 @@
                 this.life -= 1;
             }
             draw() {
-                // 1. Vẽ thân bong bóng mờ
+               
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(173, 216, 230, 0.12)';
                 ctx.fill();
 
-                // 2. Vẽ viền xanh nhạt
+             
                 ctx.lineWidth = Math.max(0.6, this.size * 0.08);
                 ctx.strokeStyle = 'rgba(70, 160, 240, 0.6)';
                 ctx.stroke();
 
-                // 3. Vẽ điểm sáng phản quang 3D góc trên bên trái
+              
                 ctx.beginPath();
                 ctx.arc(
                     this.x - this.size * 0.35, 
@@ -260,7 +258,7 @@
             document.body.classList.toggle('dark-mode');
         });
 
-        // Xử lý nút Cài đặt (Hiển thị thông báo tạm)
+     
         const settingsBtn = document.getElementById('settingsBtn');
         settingsBtn.addEventListener('click', function() {
             alert('Chức năng cài đặt đang được phát triển!');
