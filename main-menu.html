@@ -183,10 +183,10 @@
         <!-- Cột Bên Trái: Danh Mục Nav -->
         <div class="sidebar">
             <div class="sidebar-title">Categories</div>
-            <a href="#" class="nav-btn active">Mods</a>
-            <a href="#" class="nav-btn">Resource Packs</a>
-            <a href="#" class="nav-btn">Data Packs</a>
-            <a href="#" class="nav-btn">Shaders</a>
+            <a href="#" class="nav-btn active">Line 1</a>
+            <a href="#" class="nav-btn">Line 2</a>
+            <a href="#" class="nav-btn">Line 3</a>
+            <a href="#" class="nav-btn">Line 4</a>
         </div>
 
         <!-- Cột Bên Phải: Danh Sách Thẻ Nội Dung -->
@@ -196,8 +196,8 @@
             <div class="item-card">
                 <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
                 <div class="item-info">
-                    <h3>Fabric API</h3>
-                    <p>Lightweight and modular API providing common hooks and inter-mod measures utilized by mods.</p>
+                    <h3>Name 1</h3>
+                    <p>Name-1's Information</p>
                 </div>
             </div>
 
@@ -205,14 +205,30 @@
             <div class="item-card">
                 <img src="1.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
                 <div class="item-info">
-                    <h3>Sodium</h3>
-                    <p>A high-performance rendering engine that greatly improves frame rates and reduces micro-stuttering.</p>
+                    <h3>Name 2</h3>
+                    <p>Name-2's Information</p>
                 </div>
             </div>
 
         </div>
 
     </div>
+    <script>
+    // Lấy tất cả các nút nav-btn trong sidebar
+    const navButtons = document.querySelectorAll('.sidebar .nav-btn');
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Ngăn trang web bị giật/cuộn lên đầu khi bấm link #
+
+            // 1. Xóa class 'active' khỏi tất cả các nút
+            navButtons.forEach(btn => btn.classList.remove('active'));
+
+            // 2. Thêm class 'active' vào đúng nút vừa được click
+            this.classList.add('active');
+        });
+    });
+    </script>
 
 </body>
 </html>
