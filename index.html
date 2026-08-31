@@ -25,6 +25,7 @@
             padding: 20px;
             overflow: hidden;
         }
+        
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -104,7 +105,32 @@
             display: flex;
             gap: 12px;
         }
+        /* Đặt vị trí khối logo ở góc trên bên trái */
+        .brand-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Khoảng cách giữa ảnh logo và chữ */
+            z-index: 100;
+        }
 
+/* Chỉnh kích thước và bo góc ảnh logo */
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 50%; /* Bo tròn nếu muốn logo dạng hình tròn */
+        }
+    
+/* Style cho tên web bên cạnh logo */
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
 
         .icon-btn {
             background: rgba(255, 255, 255, 0.85);
@@ -157,6 +183,11 @@
     </style>
 </head>
 <body>
+    <!-- KHỐI LOGO GÓC TRÊN BÊN TRÁI -->
+    <div class="brand-logo">
+        <img src="Logoweb.png" alt="Logo" class="logo-img">
+        <span class="brand-name">SLEEPY WHALE</span>
+    </div>
 
     
     <div class="top-controls">
