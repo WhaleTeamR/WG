@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu - WhaleTeam_R</title>
+    <style>
+        /* RESET CSS CƠ BẢN */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* NỀN TOÀN TRANG WIDGET */
+        body {
+            background-color: #121316; /* Màu xám đen xịn của Modrinth */
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        /* 1. KHỐI TIÊU ĐỀ BÊN TRÊN (Mô phỏng hình 1) */
+        .header-title-box {
+            background-color: #1e1f23;
+            width: 100%;
+            max-width: 900px;
+            padding: 16px 30px;
+            border-radius: 50px; /* Bo tròn capsule giống hình của bạn */
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f0f0f0;
+            margin-bottom: 25px;
+            
+            /* Đổ bóng 3D + hiệu ứng nổi */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header-title-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        /* 2. KHỐI NỘI DUNG CHÍNH BÊN DƯỚI (Layout Flexbox 2 cột) */
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            gap: 20px; /* Khoảng cách giữa Cột Trái và Cột Phải */
+        }
+
+        /* CỘT TRÁI - THANH DANH MỤC (SIDEBAR) */
+        .sidebar {
+            width: 260px;
+            background-color: #1a1b1e;
+            padding: 20px;
+            border-radius: 20px; /* Bo góc mềm mại */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #8e9297;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        /* Các Nút Menu Bên Trái */
+        .nav-btn {
+            display: block;
+            padding: 12px 18px;
+            border-radius: 12px;
+            color: #c9cdd1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        /* Nút đang được CHỌN (Active) - Tông màu xanh Modrinth */
+        .nav-btn.active {
+            background-color: #10b981; /* Màu xanh lá đặc trưng */
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Rê chuột vào các nút bình thường */
+        .nav-btn:hover:not(.active) {
+            background-color: #2b2d31;
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        /* CỘT PHẢI - NỘI DUNG CHÍNH (CONTENT AREA) */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Thẻ hiển thị sản phẩm / Mod (Card) */
+        .item-card {
+            background-color: #1a1b1e;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 10px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Ảnh Icon bên trong Card */
+        .item-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            object-fit: cover;
+            background-color: #2b2d31;
+            flex-shrink: 0;
+        }
+
+        .item-info h3 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .item-info p {
+            font-size: 14px;
+            color: #9da2a8;
+            line-height: 1.4;
+        }
+
+        /* RESPONSIVE TRÊN ĐIỆN THOẠI MÀN HÌNH NHỎ */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. KHỐI TIÊU ĐỀ TRÊN CÙNG -->
+    <div class="header-title-box">
+        Tên web (thay đổi sau)
+    </div>
+
+    <!-- 2. KHỐI BỐ CỤC CHÍNH BÊN DƯỚI -->
+    <div class="main-container">
+        
+        <!-- Cột Bên Trái: Danh Mục Nav -->
+        <div class="sidebar">
+            <div class="sidebar-title">Categories</div>
+            <a href="#" class="nav-btn active">Mods</a>
+            <a href="#" class="nav-btn">Resource Packs</a>
+            <a href="#" class="nav-btn">Data Packs</a>
+            <a href="#" class="nav-btn">Shaders</a>
+        </div>
+
+        <!-- Cột Bên Phải: Danh Sách Thẻ Nội Dung -->
+        <div class="content-area">
+            
+            <!-- Card 1 -->
+            <div class="item-card">
+                <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                <div class="item-info">
+                    <h3>Fabric API</h3>
+                    <p>Lightweight and modular API providing common hooks and inter-mod measures utilized by mods.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="item-card">
+                <img src="1.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                <div class="item-info">
+                    <h3>Sodium</h3>
+                    <p>A high-performance rendering engine that greatly improves frame rates and reduces micro-stuttering.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
