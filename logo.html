@@ -7,7 +7,11 @@
     </div>
 </a>
 <style>
-/* KHỐI LOGO SLEEPY WHALE */
+/* ==========================================
+   CSS LOGO SLEEPY WHALE & HOẠT ẢNH
+   ========================================== */
+
+/* 1. KHUNG LOGO CHÍNH (GÓC TRÁI) */
 .brand-logo {
     position: fixed;
     top: 20px;
@@ -19,7 +23,6 @@
     padding: 6px 16px 6px 10px;
     border-radius: 50px;
     text-decoration: none;
-    
     background: rgba(255, 255, 255, 0.65);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -29,48 +32,99 @@
 }
 
 .brand-logo:hover {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transform: scale(1.025);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
 }
 
 .brand-logo:active {
     transform: scale(0.97);
 }
 
+/* KÍCH THƯỚC ẢNH LOGO */
 .logo-img {
     width: 45px;
     height: 45px;
+    object-fit: contain;
     border-radius: 50%;
-    object-fit: cover;
 }
 
+/* 2. KHUNG CHỨA CHỮ (MẶC ĐỊNH NHẤP NHÁY CẢ DÒNG) */
 .brand-name {
     display: flex;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
     font-weight: 800;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    color: #2575fc;
+    color: #1a73e8;
+    letter-spacing: 0.5px;
+    animation: pulse-whole 1.8s infinite ease-in-out;
+    transition: transform 0.3s ease;
 }
 
+@keyframes pulse-whole {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+        text-shadow: 0 0 10px rgba(26, 115, 232, 0.5);
+    }
+}
+
+/* 3. ĐỊNH DẠNG TỪNG CHỮ CÁI & SÓNG NẢY */
 .brand-name span {
     display: inline-block;
 }
 
-/* ANIMATION BUNG KHUNG & SÓNG CHỮ */
+.brand-name span.space {
+    width: 6px;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    20% {
+        transform: scale(1.3) translateY(-3px);
+        text-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
+    }
+    40% {
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 4. HOẠT ẢNH KHI HOVER CHUỘT VÀO LOGO */
+.brand-logo:hover .brand-name {
+    animation: none;
+}
+
+.brand-logo:hover .brand-name span {
+    animation: wave 2s infinite ease-in-out;
+}
+
+.brand-logo:hover .brand-name span:nth-child(1)  { animation-delay: 0.0s; }
+.brand-logo:hover .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
+.brand-logo:hover .brand-name span:nth-child(3)  { animation-delay: 0.2s; }
+.brand-logo:hover .brand-name span:nth-child(4)  { animation-delay: 0.3s; }
+.brand-logo:hover .brand-name span:nth-child(5)  { animation-delay: 0.4s; }
+.brand-logo:hover .brand-name span:nth-child(6)  { animation-delay: 0.5s; }
+.brand-logo:hover .brand-name span:nth-child(8)  { animation-delay: 0.7s; }
+.brand-logo:hover .brand-name span:nth-child(9)  { animation-delay: 0.8s; }
+.brand-logo:hover .brand-name span:nth-child(10) { animation-delay: 0.9s; }
+.brand-logo:hover .brand-name span:nth-child(11) { animation-delay: 1.0s; }
+.brand-logo:hover .brand-name span:nth-child(12) { animation-delay: 1.1s; }
+
+/* 5. HOẠT ẢNH INTRO LÚC MỚI MỞ TRANG */
 .brand-logo.intro-animation {
     overflow: hidden;
     white-space: nowrap;
     animation: expandLogo 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-@keyframes expandLogo {
-    0% { max-width: 61px; padding-right: 8px; }
-    100% { max-width: 320px; padding-right: 16px; }
-}
-
-@keyframes wave {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+.brand-logo.intro-animation .brand-name {
+    opacity: 0;
+    animation: fadeInName 0.3s ease 0.3s forwards;
 }
 
 .brand-logo.intro-animation .brand-name span {
@@ -89,16 +143,25 @@
 .brand-logo.intro-animation .brand-name span:nth-child(11) { animation-delay: 1.4s; }
 .brand-logo.intro-animation .brand-name span:nth-child(12) { animation-delay: 1.5s; }
 
-.brand-logo:hover .brand-name span { animation: wave 0.6s ease-in-out; }
-.brand-logo:hover .brand-name span:nth-child(1)  { animation-delay: 0.05s; }
-.brand-logo:hover .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
-.brand-logo:hover .brand-name span:nth-child(3)  { animation-delay: 0.15s; }
-.brand-logo:hover .brand-name span:nth-child(4)  { animation-delay: 0.2s; }
-.brand-logo:hover .brand-name span:nth-child(5)  { animation-delay: 0.25s; }
-.brand-logo:hover .brand-name span:nth-child(6)  { animation-delay: 0.3s; }
-.brand-logo:hover .brand-name span:nth-child(8)  { animation-delay: 0.35s; }
-.brand-logo:hover .brand-name span:nth-child(9)  { animation-delay: 0.4s; }
-.brand-logo:hover .brand-name span:nth-child(10) { animation-delay: 0.45s; }
-.brand-logo:hover .brand-name span:nth-child(11) { animation-delay: 0.5s; }
-.brand-logo:hover .brand-name span:nth-child(12) { animation-delay: 0.55s; }
+@keyframes expandLogo {
+    0% {
+        max-width: 61px;
+        padding-right: 8px;
+    }
+    100% {
+        max-width: 320px;
+        padding-right: 16px;
+    }
+}
+
+@keyframes fadeInName {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 6. STYLE PHỤ TRONG DARK MODE FOR LOGO */
+body.dark-mode .brand-logo {
+    background: rgba(20, 20, 25, 0.55);
+    border-color: rgba(255, 255, 255, 0.1);
+}
 </style>
