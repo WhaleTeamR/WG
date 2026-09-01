@@ -14,29 +14,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+           
         }
-        /* MẶC ĐỊNH MÀU DARK MODE */
-        /* Mặc định giao diện Sáng (hoặc Nền card chính) */
-:root {
-    --card-bg: rgba(255, 255, 255, 0.75);
-    --border-color: rgba(255, 255, 255, 0.3);
-    --text-color: #121316;
-}
-
-/* Khi bấm chuyển sang Dark Mode */
-body.dark-mode {
-    --card-bg: rgba(20, 20, 25, 0.65);
-    --border-color: rgba(255, 255, 255, 0.08);
-    --text-color: #ffffff;
-}
-
-/* Khi bấm chuyển sang Light Mode (dự phòng) */
-body.light-mode {
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --border-color: rgba(0, 0, 0, 0.1);
-    --text-color: #121316;
-}
+   
         body {
 
             background-color: transparent;
@@ -131,24 +111,22 @@ body.light-mode {
         }
         /* Đặt vị trí khối logo ở góc trên bên trái */
         .brand-logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 100;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
 
-    background-color: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    
-    padding: 6px 16px 6px 10px;
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
+            padding: 6px 16px 6px 10px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
 
     /* Hiệu ứng phát sáng nhẹ khi di chuột vào khung */
         .brand-logo:hover {
@@ -170,7 +148,7 @@ body.light-mode {
             font-family: 'Nunito', sans-serif;
             font-size: 20px;                     /* Đổi từ 40px xuống 20px */
             font-weight: 800;
-            color: var(--text-color);           /* Giữ lại dòng này để tự đổi màu */
+            color: #1a73e8;           
             letter-spacing: 0.5px;
         }
 
@@ -205,12 +183,10 @@ body.light-mode {
      z-index: -2;
    }
 
-        /* Khi đổi sang Chế độ Sáng (Light Mode) */
-        body.light-mode {
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --border-color: rgba(0, 0, 0, 0.1);
-            --text-color: #121316;
+        body.dark-node .brand-logo {
+            background: rgba(20, 20, 25, 0.65);
         }
+
         body.dark-mode .icon-btn {
             background: rgba(30, 30, 35, 0.85);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
