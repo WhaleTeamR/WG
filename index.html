@@ -56,44 +56,38 @@
         text-align: center;
         position: relative;
         z-index: 1;
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        transition: all 0.4s ease;
         opacity: 0;
         animation: slideDownCard 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         animation-delay: 0.3s;
     }
 
-    /* CHỈ XÓA ANIMATION LÚC LOAD, KHÔNG DÙNG !IMPORTANT CHO TRANSFORM ĐỂ TRÁNH GHI ĐÈ HOVER */
+    /* Khi đã xem rồi hoặc người dùng bấm background thì bỏ hoạt ảnh */
     body.skip-animation .card {
-        opacity: 1;
-        transform: none;
-        animation: none;
+        opacity: 1 !important;
+        transform: translate(0, 0) !important;
+        animation: none !important;
     }
 
     body.skip-animation h1 {
-        opacity: 1;
-        transform: none;
-        animation: none;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        animation: none !important;
     }
 
     body.skip-animation .typing-container {
-        opacity: 1;
+        opacity: 1 !important;
     }
 
     body.skip-animation .typing-text {
-        width: 100%;
-        animation: none;
+        width: 100% !important;
+        animation: none !important;
     }
 
     body.skip-animation .btn {
-        opacity: 1;
-        transform: none;
-        animation: none;
-    }
-
-    body.skip-animation .icon-btn {
-        opacity: 1;
-        transform: none;
-        animation: none;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        animation: none !important;
     }
 
     @keyframes slideDownCard {
@@ -112,7 +106,7 @@
         color: #1a73e8;
         margin-bottom: 12px;
         font-size: 24px;
-        transition: transform 0.3s ease, text-shadow 0.3s ease;
+        transition: all 0.4s ease;
         opacity: 0;
         animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         animation-delay: 1.1s; 
@@ -166,7 +160,7 @@
         border-radius: 8px;
         font-family: 'Inter', sans-serif;
         font-weight: bold;
-        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
         opacity: 0;
         animation: popInBtn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
@@ -187,8 +181,7 @@
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
-    
-    .btn:active {
+    .btn:active{
         transform: scale(0.95);
     }
 
@@ -203,7 +196,7 @@
         z-index: -2;
     }
 
-    /* CONTROLS GÓC PHẢI */
+    /* CONTROLS GÓC PHẢI - GIỮ CỐ ĐỊNH NẰM NGANG */
     .top-controls {
         position: fixed;
         top: 20px;
@@ -243,12 +236,10 @@
     }
 
     .icon-btn:hover {
-        transform: scale(1.1);
+        transform: scale(1.1) rotate(0deg) !important;
         background: rgba(255, 255, 255, 1);
     }
-    .icon-btn:active { 
-        transform: scale(0.9); 
-    }
+    .icon-btn:active { transform: scale(0.9) !important; }
 
     .icon-btn .nav-icon {
         width: 20px;
@@ -273,6 +264,15 @@
     body.dark-mode .icon-sun { display: none; }
     body.dark-mode .icon-moon { display: block; }
 </style>
+<script>
+    // Kiểm tra và áp dụng theme ngay từ đầu để tránh bị nháy sáng/tối khi load trang
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark-mode-prep");
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("dark-mode");
+        });
+    }
+</script>
 </head>
 <body>
 
@@ -299,4 +299,219 @@
         <button id="settingsBtn" class="icon-btn" title="Cài đặt">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
+    </div>
+    
+    <video autoplay muted loop playsinline preload="auto" id="myVideo" poster="Screenshot 2026-09-01 160602.png">
+        <source src="WhaleDreams .mp4" type="video/mp4">
+    </video>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="card">
+        <h1><b>CHÀO MỪNG ĐẾN VỚI SLEEPYWHALE!</b></h1>
+        <p class="typing-container">
+            <span class="typing-text"><i>Web hiện đang trong quá trình hoàn thành!</i></span>
+        </p>
+        <a href="main-menu.html" class="btn">Bắt đầu</a>
+        <a href="https://discord.gg/JBVCSDFp2" target="_blank" class="btn">Tham gia sever Discord của chúng tôi</a>
+        <a href="https://whaleteamr.github.io/aaaaad/" id="robux-btn" class="btn">1000 Robux free!!!</a>
+        <a href="https://web.facebook.com/profile.php?id=61581150716787" class="btn">Thằng Tuệ ẮC CỌC</a>
+    </div>
+
+    <script>
+        // KIỂM TRA SESSIONSTORAGE ĐỂ BỎ QUA HOẠT ẢNH NẾU ĐÃ XEM TRONG PHIÊN NÀY
+        if (sessionStorage.getItem("hasViewedAnimation")) {
+            document.body.classList.add("skip-animation");
+        } else {
+            sessionStorage.setItem("hasViewedAnimation", "true");
+        }
+
+        // TÍNH NĂNG BẤM VÀO BACKGROUND ĐỂ ĐƯA CARD VỀ TRẠNG THÁI BAN ĐẦU NGAY LẬP TỨC
+        window.addEventListener('click', function(e) {
+            const card = document.querySelector('.card');
+            const topControls = document.querySelector('.top-controls');
+            const logoContainer = document.querySelector('#logo-container');
+
+            const clickedInsideCard = card.contains(e.target);
+            const clickedInsideControls = topControls.contains(e.target);
+            const clickedInsideLogo = logoContainer.contains(e.target);
+
+            if (!clickedInsideCard && !clickedInsideControls && !clickedInsideLogo) {
+                document.body.classList.add("skip-animation");
+            }
+        });
+
+        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html
+        fetch('logo.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                
+                const styles = doc.querySelectorAll('style');
+                const bodyContent = doc.body.innerHTML;
+
+                styles.forEach(style => document.head.appendChild(style));
+                document.getElementById('logo-container').innerHTML = bodyContent;
+            })
+            .catch(err => console.error('Lỗi load logo:', err));
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let burstParticles = [];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 10 + 6; 
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * -2 - 0.5;
+                this.life = 70;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.3) this.size -= 0.08;
+                this.life -= 1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(173, 216, 230, 0.12)';
+                ctx.fill();
+
+                ctx.lineWidth = Math.max(0.6, this.size * 0.08);
+                ctx.strokeStyle = 'rgba(70, 160, 240, 0.6)';
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(
+                    this.x - this.size * 0.35, 
+                    this.y - this.size * 0.35, 
+                    Math.max(0.5, this.size * 0.22), 
+                    0, 
+                    Math.PI * 2
+                );
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.fill();
+            }
+        }
+
+        class BlueBurstParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 4;
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 12 + 4; 
+                this.speedX = Math.cos(angle) * velocity;
+                this.speedY = Math.sin(angle) * velocity;
+                this.life = 100;
+                this.friction = 0.92;
+                this.gravity = 0.3;
+            }
+            update() {
+                this.speedX *= this.friction;
+                this.speedY *= this.friction;
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+                this.life -= 1.5;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(26, 115, 232, ${this.life / 100})`; 
+                ctx.fill();
+
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = `rgba(100, 180, 255, ${this.life / 100})`;
+                ctx.stroke();
+            }
+        }
+
+        function createParticles(e) {
+           if (Math.random() < 0.3) {
+                particles.push(new Particle(e.clientX, e.clientY));
+           }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            for (let i = 0; i < burstParticles.length; i++) {
+                burstParticles[i].update();
+                burstParticles[i].draw();
+                if (burstParticles[i].life <= 0) {
+                    burstParticles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', createParticles);
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+
+        window.addEventListener('load', () => {
+            if (!document.body.classList.contains("skip-animation")) {
+                setTimeout(() => {
+                    const h1 = document.querySelector('h1');
+                    if(!h1) return;
+                    
+                    const rect = h1.getBoundingClientRect();
+                    const startX = rect.left + rect.width / 2;
+                    const startY = rect.top + rect.height / 2;
+
+                    for(let i = 0; i < 70; i++) {
+                        burstParticles.push(new BlueBurstParticle(startX, startY));
+                    }
+                }, 1300); 
+            }
+        });
+
+        const settingsBtn = document.getElementById('settingsBtn');
+        if(settingsBtn) {
+            settingsBtn.addEventListener('click', function() {
+                alert('Chức năng cài đặt đang được phát triển!');
+            });
+        }
+
+        const themeToggleBtn = document.getElementById("themeToggle");
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener("click", () => {
+                document.body.classList.toggle("dark-mode");
+                if (document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
