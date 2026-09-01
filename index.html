@@ -471,6 +471,28 @@
             }, 2200);
         }
     });
+    // 1. Khai báo nút và lấy trạng thái đã lưu
+const themeToggleBtn = document.getElementById("themeToggle");
+const savedTheme = localStorage.getItem("theme");
+
+// 2. Kiểm tra nếu lần trước chọn Dark Mode thì tự kích hoạt lại
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+}
+
+// 3. Lắng nghe sự kiện click nút để đổi theme và lưu lựa chọn
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        // Lưu lựa chọn mới vào trình duyệt
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    });
+}
         
     </script>
 </body>
