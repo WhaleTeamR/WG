@@ -16,6 +16,19 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
+        /* MẶC ĐỊNH MÀU DARK MODE */
+        :root {
+            --card-bg: rgba(26, 27, 30, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-color: #ffffff;
+        }
+
+    /* KHI ĐỔI SANG LIGHT MODE */
+        body.light-mode {
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-color: #121316;
+        }
         body {
 
             background-color: transparent;
@@ -110,34 +123,36 @@
         }
         /* Đặt vị trí khối logo ở góc trên bên trái */
         .brand-logo {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 20px;
             display: flex;
             align-items: center;
-            gap: 12px; 
+            gap: 12px;
             z-index: 100;
-            /* TRANG TRÍ KHUNG CAPSULE */
-            background-color: #1a1b1e;                  /* Màu nền xám đen */
-            padding: 8px 18px 8px 12px;                  /* Khoảng cách viền bên trong */
-            border-radius: 50px;                        /* Bo tròn 2 đầu dạng viên thuốc */
-            border: 1px solid rgba(255, 255, 255, 0.08); /* Viền mờ nhẹ */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);   /* Đổ bóng 3D nổi nhẹ */
+
+            background-color: var(--card-bg); /* Dùng biến màu tự đổi theo theme */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         
-            z-index: 100;
+            padding: 6px 16px 6px 10px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
 
     /* Hiệu ứng phát sáng nhẹ khi di chuột vào khung */
         .brand-logo:hover {
+            transform: scale(1.025);
             border-color: rgba(16, 185, 129, 0.4);
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
         }
 
 /* Chỉnh kích thước và bo góc ảnh logo */
         .logo-img {
-            width: 60px;
-            height: 60px;
+            width: 45px;
+            height: 45px;
             object-fit: contain;
             border-radius: 50%; /* Bo tròn nếu muốn logo dạng hình tròn */
         }
@@ -145,9 +160,9 @@
 /* Style cho tên web bên cạnh logo */
         .brand-name {
             font-family: 'Nunito', sans-serif;
-            font-size: 40px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 20px;                     /* Đổi từ 40px xuống 20px */
+            font-weight: 800;
+            color: var(--text-color);           /* Giữ lại dòng này để tự đổi màu */
             letter-spacing: 0.5px;
         }
 
@@ -182,7 +197,12 @@
      z-index: -2;
    }
 
-        
+        /* Khi đổi sang Chế độ Sáng (Light Mode) */
+        body.light-mode {
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-color: #121316;
+        }
         body.dark-mode .icon-btn {
             background: rgba(30, 30, 35, 0.85);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -198,7 +218,7 @@
         body.dark-mode h1 {
             color: #4da6ff;
         }
-    }
+    
     </style>
 </head>
 <body>
