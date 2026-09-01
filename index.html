@@ -9,259 +9,259 @@
     <link rel="icon" type="image/png" href="Logo - 1 - Edited.png">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-           
-        }
-   
-        body {
-
-            background-color: transparent;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
-        
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            pointer-events: none;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(8px);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-        }
-        .card:hover {
-            transform: scale(1.025) ;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 0 15px #4da6ff;
-        }
-        h1 {
-            font-family: 'Nunito', sans-serif;
-            color: #1a73e8;
-            margin-bottom: 12px;
-            font-size: 24px;
-            transition: all 0.4s ease;
-        }
-       
-        h1:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
-        }
-        p {
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-        .btn {
-    display: block; /* Ép mỗi nút nằm riêng 1 hàng ngang */
-    width: 380px; /* Thu gọn kích thước nút vừa với chữ */
-    margin: 12px auto 0 auto; /* Căn giữa nút */
-    
-    padding: 12px 24px;
-    background-color: #1a73e8;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif; /* Cố định font Nunito cho nút */
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-        .btn:hover {
-            background-color: #388af5;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-         a:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
-        }
-        #myVideo {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -2;
-        }
-        .top-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            gap: 12px;
-        }
-        /* Đặt vị trí khối logo ở góc trên bên trái */
-        .brand-logo {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 100;
-            -webkit-backdrop-filter: blur(10px);
-
-            padding: 6px 16px 6px 10px;
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-        }
-
-    /* Hiệu ứng phát sáng nhẹ khi di chuột vào khung */
-        .brand-logo:hover {
-            transform: scale(1.025);
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-        }
-
-/* Chỉnh kích thước và bo góc ảnh logo */
-        .logo-img {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            border-radius: 50%; /* Bo tròn nếu muốn logo dạng hình tròn */
-        }
-    
-/* Style cho tên web bên cạnh logo */
-        /* Khung chứa chữ */
-.brand-name {
-    display: flex;
-    align-items: center;
-    font-family: 'Nunito', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #1a73e8; /* Giữ màu xanh rực rỡ */
-    letter-spacing: 0.5px;
-}
-
-/* Định dạng từng chữ cái */
-.brand-name span {
-    display: inline-block;
-    transition: color 0.3s ease;
-    /* Tên animation: wave | Thời gian 1 vòng: 2s | Lặp vô hạn */
-    animation: wave 2s infinite ease-in-out; 
-}
-
-/* Khoảng cách giữa 2 từ SLEEPY và WHALE */
-.brand-name span.space {
-    width: 6px; 
-}
-
-/* Kiểu hoạt ảnh phóng to + nảy nhẹ lên */
-@keyframes wave {
-    0%, 100% {
-        transform: scale(1) translateY(0);
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    20% {
-        transform: scale(1.3) translateY(-3px); /* Phóng to 1.3 lần và nhích nhẹ lên */
-        text-shadow: 0 0 10px rgba(26, 115, 232, 0.6); /* Glow nhẹ khi phóng to */
+
+    body {
+        background-color: transparent;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        overflow: hidden;
     }
-    40% {
-        transform: scale(1) translateY(0);
+
+    #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
     }
-}
 
-/* Tạo độ trễ (delay) từng chữ cái để tạo hiệu ứng gợn sóng chạy từ trái sang phải */
-.brand-name span:nth-child(1)  { animation-delay: 0.0s; }
-.brand-name span:nth-child(2)  { animation-delay: 0.1s; }
-.brand-name span:nth-child(3)  { animation-delay: 0.2s; }
-.brand-name span:nth-child(4)  { animation-delay: 0.3s; }
-.brand-name span:nth-child(5)  { animation-delay: 0.4s; }
-.brand-name span:nth-child(6)  { animation-delay: 0.5s; }
-/* nth-child(7) là dấu cách (space) */
-.brand-name span:nth-child(8)  { animation-delay: 0.7s; }
-.brand-name span:nth-child(9)  { animation-delay: 0.8s; }
-.brand-name span:nth-child(10) { animation-delay: 0.9s; }
-.brand-name span:nth-child(11) { animation-delay: 1.0s; }
-.brand-name span:nth-child(12) { animation-delay: 1.1s; }
+    /* CARD CHÍNH */
+    .card {
+        background: rgba(255, 255, 255, 0.7); 
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Đã dọn dẹp trùng lặp */
+        max-width: 500px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        transition: all 0.4s ease;
+    }
 
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .icon-btn:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 1);
-        }
+    .card:hover {
+        transform: scale(1.025);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 0 15px #4da6ff;
+    }
 
+    h1 {
+        font-family: 'Nunito', sans-serif;
+        color: #1a73e8;
+        margin-bottom: 12px;
+        font-size: 24px;
+        transition: all 0.4s ease;
+    }
+
+    h1:hover {
+        transform: scale(1.05);
+        text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
+    }
+
+    p {
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    /* NÚT BẤM */
+    .btn {
+        display: block;
+        width: 380px;
+        max-width: 100%; /* Giúp responsive tốt trên điện thoại */
+        margin: 12px auto 0 auto;
+        padding: 12px 24px;
+        background-color: #1a73e8;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #388af5;
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* VIDEO NỀN */
+    #myVideo, .bg-media {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    /* CONTROLS GÓC PHẢI */
+    .top-controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        display: flex;
+        gap: 12px;
+    }
+
+    /* BRAND LOGO GÓC TRÁI */
+    .brand-logo {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 16px 6px 10px;
+        border-radius: 50px;
         
-        body.dark-mode .card {
-            background: rgba(20, 20, 25, 0.65);
-        }
-   .bg-media {
-     width: 100vw;
-     height: 100vh;
-     object-fit: cover;
-     z-index: -2;
-   }
+        background: rgba(255, 255, 255, 0.65);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.4); /* Đã thay biến var bằng màu thực */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
 
-        body.dark-mode .brand-logo {
-            background: rgba(20, 20, 25, 0.55);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-        }
+    .brand-logo:hover {
+        transform: scale(1.025);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+    }
 
-        body.dark-mode .icon-btn {
-            background: rgba(30, 30, 35, 0.85);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    .logo-img {
+        width: 45px;
+        height: 45px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    /* HOẠT ẢNH CHỮ SLEEPY WHALE */
+    .brand-name {
+        display: flex;
+        align-items: center;
+        font-family: 'Nunito', sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        color: #1a73e8;
+        letter-spacing: 0.5px;
+    }
+
+    .brand-name span {
+        display: inline-block;
+        transition: color 0.3s ease;
+        animation: wave 2s infinite ease-in-out; 
+    }
+
+    .brand-name span.space {
+        width: 6px; 
+    }
+
+    @keyframes wave {
+        0%, 100% {
+            transform: scale(1) translateY(0);
         }
-        body.dark-mode .icon-btn:hover {
-            background: rgba(60, 60, 65, 1);
+        20% {
+            transform: scale(1.3) translateY(-3px);
+            text-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
         }
-        
-        body.dark-mode p {
-            color: #b0b0b0;
+        40% {
+            transform: scale(1) translateY(0);
         }
-        
-        body.dark-mode h1 {
-            color: #4da6ff;
-        }
-    
-    </style>
+    }
+
+    .brand-name span:nth-child(1)  { animation-delay: 0.0s; }
+    .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
+    .brand-name span:nth-child(3)  { animation-delay: 0.2s; }
+    .brand-name span:nth-child(4)  { animation-delay: 0.3s; }
+    .brand-name span:nth-child(5)  { animation-delay: 0.4s; }
+    .brand-name span:nth-child(6)  { animation-delay: 0.5s; }
+    .brand-name span:nth-child(8)  { animation-delay: 0.7s; }
+    .brand-name span:nth-child(9)  { animation-delay: 0.8s; }
+    .brand-name span:nth-child(10) { animation-delay: 0.9s; }
+    .brand-name span:nth-child(11) { animation-delay: 1.0s; }
+    .brand-name span:nth-child(12) { animation-delay: 1.1s; }
+
+    /* ICON BUTTONS */
+    .icon-btn {
+        background: rgba(255, 255, 255, 0.85);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .icon-btn:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 1);
+    }
+
+    /* DARK MODE */
+    body.dark-mode .card {
+        background: rgba(20, 20, 25, 0.65);
+    }
+
+    body.dark-mode .brand-logo {
+        background: rgba(20, 20, 25, 0.55);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .icon-btn {
+        background: rgba(30, 30, 35, 0.85);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    body.dark-mode .icon-btn:hover {
+        background: rgba(60, 60, 65, 1);
+    }
+
+    body.dark-mode p {
+        color: #b0b0b0;
+    }
+
+    body.dark-mode h1 {
+        color: #4da6ff;
+    }
+</style>
 </head>
 <body>
     <!-- KHỐI LOGO GÓC TRÊN BÊN TRÁI -->
+    <div class="brand-logo">
+    <!-- Ảnh logo hình tròn -->
+    <img src="link-anh-logo-cua-ban.png" alt="Logo" class="logo-img">
+    
+    <!-- Chữ gợn sóng từng ký tự -->
     <div class="brand-name">
         <span>S</span><span>L</span><span>E</span><span>E</span><span>P</span><span>Y</span>
         <span class="space">&nbsp;</span>
         <span>W</span><span>H</span><span>A</span><span>L</span><span>E</span>
     </div>
+</div>
 
     
     <div class="top-controls">
