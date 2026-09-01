@@ -212,27 +212,26 @@
     </style>
 </head>
 <body>
-    <!-- Nơi sẽ chứa Logo được tải vào -->
-    <div id="logo-container"></div>
+<!-- NƠI HIỂN THỊ LOGO -->
+<div id="logo-container"></div>
 
-    <!-- Nội dung còn lại của trang web... -->
-
-
-    <!-- SCRIPT TỰ ĐỘNG CHÈN LOGO TỪ FILE LOGO.HTML -->
-    <script>
-        fetch('logo.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('logo-container').innerHTML = data;
-                
-                // Tắt animation intro sau 2.5s
+<!-- SCRIPT NẠP LOGO -->
+<script>
+    fetch('logo.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('logo-container').innerHTML = data;
+            
+            // Xóa class intro sau 2.2s để trả về trạng thái hover bình thường
+            const brandLogo = document.querySelector('.brand-logo');
+            if (brandLogo) {
                 setTimeout(() => {
-                    const brandLogo = document.getElementById('brandLogo');
-                    if (brandLogo) brandLogo.classList.remove('intro-animation');
-                }, 2500);
-            })
-            .catch(error => console.error('Lỗi tải logo:', error));
-    </script>
+                    brandLogo.classList.remove('intro-animation');
+                }, 2200);
+            }
+        })
+        .catch(err => console.error('Lỗi khi tải logo:', err));
+</script>
     <!-- 1. KHỐI THANH TÌM KIẾM BÊN TRÊN -->
     <div class="search-box">
         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
