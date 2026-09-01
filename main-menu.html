@@ -27,28 +27,7 @@
             padding: 30px 20px;
         }
 
-        /* 1. KHỐI TIÊU ĐỀ BÊN TRÊN (Mô phỏng hình 1) */
-        .header-title-box {
-            background-color: #1e1f23;
-            width: 100%;
-            max-width: 900px;
-            padding: 16px 30px;
-            border-radius: 50px; /* Bo tròn capsule giống hình của bạn */
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #f0f0f0;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .header-title-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.2);
-            text-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-        }
+       
 
         /* 2. KHỐI NỘI DUNG CHÍNH BÊN DƯỚI (Layout Flexbox 2 cột) */
         .main-container {
@@ -180,9 +159,16 @@
 <body>
 
     <!-- 1. KHỐI TIÊU ĐỀ TRÊN CÙNG -->
-    <div class="header-title-box">
-        Tên web (thay đổi sau)
-    </div>
+    <div class="search-box">
+    <!-- Icon kính lúp dạng SVG sắc nét -->
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    
+    <!-- Ô nhập từ khóa -->
+    <input type="text" class="search-input" placeholder="Tìm kiếm...">
+</div>
 
     <!-- 2. KHỐI BỐ CỤC CHÍNH BÊN DƯỚI -->
     <div class="main-container">
