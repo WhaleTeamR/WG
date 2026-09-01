@@ -235,6 +235,7 @@
 /* Khung logo ban đầu ở dạng tròn, tự kéo dài ra */
 .brand-logo.intro-animation {
     overflow: hidden;
+    white-space: nowrap;
     animation: expandLogo 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -264,11 +265,11 @@
 /* Mở rộng chiều rộng khung logo */
 @keyframes expandLogo {
     0% {
-        width: 61px;
+        max-width: 61px;
         padding-right: 8px;
     }
     100% {
-        width: 235px;
+        max-width: 320px;
         padding-right: 16px;
     }
 }
