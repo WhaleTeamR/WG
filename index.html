@@ -36,16 +36,12 @@
         pointer-events: none;
     }
 
-    /* KÍCH THƯỚC KHUNG NHÚNG LOGO GÓC TRÁI */
-    .logo-frame {
+    /* VỊ TRÍ CONTAINER LOGO */
+    #logo-container {
         position: fixed;
         top: 20px;
         left: 20px;
         z-index: 100;
-        width: 250px;
-        height: 65px;
-        border: none;
-        overflow: hidden;
     }
 
     /* CARD CHÍNH */
@@ -243,8 +239,8 @@
 </head>
 <body>
 
-    <!-- GỌI FILE LOGO.HTML BẰNG IFRAME -->
-    <iframe src="logo.html" class="logo-frame"></iframe>
+    <!-- THAY IFRAME BẰNG DIV CONTAINER ĐỂ LOAD TRỰC TIẾP CODE TỪ LOGO.HTML -->
+    <div id="logo-container"></div>
     
     <div class="top-controls">
         <!-- Nút Sáng/Tối bên trái -->
@@ -292,6 +288,21 @@
     </div>
 
     <script>
+        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html VÀO TRANG MÀ KHÔNG DÙNG IFRAME
+        fetch('logo.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                
+                const styles = doc.querySelectorAll('style');
+                const bodyContent = doc.body.innerHTML;
+
+                styles.forEach(style => document.head.appendChild(style));
+                document.getElementById('logo-container').innerHTML = bodyContent;
+            })
+            .catch(err => console.error('Lỗi load logo:', err));
+
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
