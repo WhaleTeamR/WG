@@ -228,54 +228,51 @@
 .brand-logo:hover .brand-name span:nth-child(10) { animation-delay: 0.9s; }
 .brand-logo:hover .brand-name span:nth-child(11) { animation-delay: 1.0s; }
 .brand-logo:hover .brand-name span:nth-child(12) { animation-delay: 1.1s; }
-    /* ==========================================
+/* ==========================================
    HOẠT ẢNH INTRO KHI MỚI VÀO TRANG WEB
    ========================================== */
 
-/* 1. Mới vào: Giấu phần chữ và ẩn thanh cuộn thừa */
+/* Khung logo ban đầu ở dạng tròn, tự kéo dài ra */
 .brand-logo.intro-animation {
     overflow: hidden;
-    animation: expandLogo 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: expandLogo 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .brand-logo.intro-animation .brand-name {
     opacity: 0;
-    animation: fadeInName 0.5s ease 0.6s forwards; /* Hiện chữ khi khung bắt đầu mở rộng */
+    animation: fadeInName 0.3s ease 0.3s forwards;
 }
 
-/* 2. Ép các chữ cái gợn sóng ngay lập tức trong lúc chạy Intro */
+/* Ép từng chữ cái chạy sóng ĐÚNG 1 LẦN (1s/lần) thay vì infinite */
 .brand-logo.intro-animation .brand-name span {
-    animation: wave 1.8s infinite ease-in-out;
+    animation: wave 1s 1 ease-in-out;
 }
 
-.brand-logo.intro-animation .brand-name span:nth-child(1)  { animation-delay: 0.6s; }
-.brand-logo.intro-animation .brand-name span:nth-child(2)  { animation-delay: 0.7s; }
-.brand-logo.intro-animation .brand-name span:nth-child(3)  { animation-delay: 0.8s; }
-.brand-logo.intro-animation .brand-name span:nth-child(4)  { animation-delay: 0.9s; }
-.brand-logo.intro-animation .brand-name span:nth-child(5)  { animation-delay: 1.0s; }
-.brand-logo.intro-animation .brand-name span:nth-child(6)  { animation-delay: 1.1s; }
-.brand-logo.intro-animation .brand-name span:nth-child(8)  { animation-delay: 1.3s; }
-.brand-logo.intro-animation .brand-name span:nth-child(9)  { animation-delay: 1.4s; }
-.brand-logo.intro-animation .brand-name span:nth-child(10) { animation-delay: 1.5s; }
-.brand-logo.intro-animation .brand-name span:nth-child(11) { animation-delay: 1.6s; }
-.brand-logo.intro-animation .brand-name span:nth-child(12) { animation-delay: 1.7s; }
+/* Độ trễ sóng quét mượt từ S tới E đúng 1 đợt duy nhất */
+.brand-logo.intro-animation .brand-name span:nth-child(1)  { animation-delay: 0.4s; }
+.brand-logo.intro-animation .brand-name span:nth-child(2)  { animation-delay: 0.5s; }
+.brand-logo.intro-animation .brand-name span:nth-child(3)  { animation-delay: 0.6s; }
+.brand-logo.intro-animation .brand-name span:nth-child(4)  { animation-delay: 0.7s; }
+.brand-logo.intro-animation .brand-name span:nth-child(5)  { animation-delay: 0.8s; }
+.brand-logo.intro-animation .brand-name span:nth-child(6)  { animation-delay: 0.9s; }
+.brand-logo.intro-animation .brand-name span:nth-child(8)  { animation-delay: 1.1s; }
+.brand-logo.intro-animation .brand-name span:nth-child(9)  { animation-delay: 1.2s; }
+.brand-logo.intro-animation .brand-name span:nth-child(10) { animation-delay: 1.3s; }
+.brand-logo.intro-animation .brand-name span:nth-child(11) { animation-delay: 1.4s; }
+.brand-logo.intro-animation .brand-name span:nth-child(12) { animation-delay: 1.5s; }
 
-/* Keyframe kéo dài khung từ Tròn -> Dài */
+/* Mở rộng chiều rộng khung logo */
 @keyframes expandLogo {
     0% {
-        width: 61px; /* Kích thước vừa khít ảnh tròn 45px + padding */
+        width: 61px;
         padding-right: 8px;
     }
-    40% {
-        width: 61px;
-    }
     100% {
-        width: 235px; /* Kích thước bung đầy đủ chữ */
+        width: 235px;
         padding-right: 16px;
     }
 }
 
-/* Keyframe hiện dần chữ */
 @keyframes fadeInName {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -461,7 +458,7 @@
             // Xóa class sau khi chạy xong hiệu ứng (khoảng 3.2s) để trả về trạng thái hover bình thường
             setTimeout(() => {
                 brandLogo.classList.remove('intro-animation');
-            }, 3200);
+            }, 2200);
         }
     });
         
