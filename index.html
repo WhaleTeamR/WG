@@ -114,8 +114,8 @@
         }
         /* Đặt vị trí khối logo ở góc trên bên trái */
         .brand-logo {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
             position: fixed;
             top: 20px;
             left: 20px;
@@ -123,6 +123,7 @@
             align-items: center;
             gap: 12px;
             z-index: 100;
+            -webkit-backdrop-filter: blur(10px);
 
             padding: 6px 16px 6px 10px;
             border-radius: 50px;
@@ -187,7 +188,9 @@
    }
 
         body.dark-mode .brand-logo {
-            background: rgba(20, 20, 25, 0.65);
+            background: rgba(20, 20, 25, 0.55);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
         }
 
         body.dark-mode .icon-btn {
