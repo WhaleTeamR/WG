@@ -152,51 +152,82 @@
         border-radius: 50%;
     }
 
-    /* HOẠT ẢNH CHỮ SLEEPY WHALE */
-    .brand-name {
-        display: flex;
-        align-items: center;
-        font-family: 'Nunito', sans-serif;
-        font-size: 20px;
-        font-weight: 800;
-        color: #1a73e8;
-        letter-spacing: 0.5px;
-    }
+/* 1. KHUNG CHỨA CHỮ (MẶC ĐỊNH NHẤP NHÁY CẢ DÒNG) */
+.brand-name {
+    display: flex;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a73e8;
+    letter-spacing: 0.5px;
 
-    .brand-name span {
-        display: inline-block;
-        transition: color 0.3s ease;
-        animation: wave 2s infinite ease-in-out; 
-    }
+    /* Hoạt ảnh nhấp nháy to nhỏ toàn bộ dòng */
+    animation: pulse-whole 1.8s infinite ease-in-out;
+    transition: transform 0.3s ease;
+}
 
-    .brand-name span.space {
-        width: 6px; 
+/* Kiểu nhấp nháy to nhỏ toàn dòng */
+@keyframes pulse-whole {
+    0%, 100% {
+        transform: scale(1);
     }
-
-    @keyframes wave {
-        0%, 100% {
-            transform: scale(1) translateY(0);
-        }
-        20% {
-            transform: scale(1.3) translateY(-3px);
-            text-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
-        }
-        40% {
-            transform: scale(1) translateY(0);
-        }
+    50% {
+        transform: scale(1.08); /* Phóng to nhẹ toàn bộ chữ */
+        text-shadow: 0 0 10px rgba(26, 115, 232, 0.5);
     }
+}
 
-    .brand-name span:nth-child(1)  { animation-delay: 0.0s; }
-    .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
-    .brand-name span:nth-child(3)  { animation-delay: 0.2s; }
-    .brand-name span:nth-child(4)  { animation-delay: 0.3s; }
-    .brand-name span:nth-child(5)  { animation-delay: 0.4s; }
-    .brand-name span:nth-child(6)  { animation-delay: 0.5s; }
-    .brand-name span:nth-child(8)  { animation-delay: 0.7s; }
-    .brand-name span:nth-child(9)  { animation-delay: 0.8s; }
-    .brand-name span:nth-child(10) { animation-delay: 0.9s; }
-    .brand-name span:nth-child(11) { animation-delay: 1.0s; }
-    .brand-name span:nth-child(12) { animation-delay: 1.1s; }
+/* ------------------------------------------------------------- */
+
+/* 2. ĐỊNH DẠNG TỪNG CHỮ CÁI */
+.brand-name span {
+    display: inline-block;
+}
+
+.brand-name span.space {
+    width: 6px;
+}
+
+/* Kiểu gợn sóng cho từng chữ cái */
+@keyframes wave {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    20% {
+        transform: scale(1.3) translateY(-3px);
+        text-shadow: 0 0 10px rgba(26, 115, 232, 0.6);
+    }
+    40% {
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ------------------------------------------------------------- */
+
+/* 3. KHI RÊ CHUỘT VÀO KHUNG .brand-logo (HOVER) */
+
+/* Tắt nhấp nháy cả dòng */
+.brand-logo:hover .brand-name {
+    animation: none;
+}
+
+/* Bật gợn sóng cho từng chữ cái + chạy độ trễ */
+.brand-logo:hover .brand-name span {
+    animation: wave 2s infinite ease-in-out;
+}
+
+.brand-logo:hover .brand-name span:nth-child(1)  { animation-delay: 0.0s; }
+.brand-logo:hover .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
+.brand-logo:hover .brand-name span:nth-child(3)  { animation-delay: 0.2s; }
+.brand-logo:hover .brand-name span:nth-child(4)  { animation-delay: 0.3s; }
+.brand-logo:hover .brand-name span:nth-child(5)  { animation-delay: 0.4s; }
+.brand-logo:hover .brand-name span:nth-child(6)  { animation-delay: 0.5s; }
+.brand-logo:hover .brand-name span:nth-child(8)  { animation-delay: 0.7s; }
+.brand-logo:hover .brand-name span:nth-child(9)  { animation-delay: 0.8s; }
+.brand-logo:hover .brand-name span:nth-child(10) { animation-delay: 0.9s; }
+.brand-logo:hover .brand-name span:nth-child(11) { animation-delay: 1.0s; }
+.brand-logo:hover .brand-name span:nth-child(12) { animation-delay: 1.1s; }
 
     /* ICON BUTTONS */
     .icon-btn {
