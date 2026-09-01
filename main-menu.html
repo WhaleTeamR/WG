@@ -16,19 +16,95 @@
             font-family: 'Inter', sans-serif;
         }
 
+        /* ==========================================
+           1. KHAI BÁO BIẾN MÀU SẮC (MẶC ĐỊNH LÀ SÁNG)
+           ========================================== */
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --hover-bg: #f9fafb;
+            --hover-border: rgba(16, 185, 129, 0.5);
+            --hover-glow: rgba(16, 185, 129, 0.15);
+        }
+
+        /* CHẾ ĐỘ TỐI (DARK MODE) */
+        body.dark-mode {
+            --bg-color: #121316;
+            --card-bg: #1a1b1e;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-sub: #8e9297;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --hover-bg: #2b2d31;
+            --hover-border: rgba(16, 185, 129, 0.5);
+            --hover-glow: rgba(16, 185, 129, 0.2);
+        }
+
         /* NỀN TOÀN TRANG WIDGET */
         body {
-            background-color: #121316; /* Màu xám đen Modrinth */
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 30px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* ==========================================
-           1. THANH TÌM KIẾM (SEARCH BOX) GLASSMORPHISM
+           2. NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI (GÓC TRÊN PHẢI)
+           ========================================== */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--hover-border);
+            box-shadow: 0 4px 15px var(--hover-glow);
+        }
+
+        .theme-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease, stroke 0.3s ease;
+        }
+
+        /* Ẩn/Hiện icon theo chế độ */
+        .icon-sun { display: block; }
+        .icon-moon { display: none; }
+
+        body.dark-mode .icon-sun { display: none; }
+        body.dark-mode .icon-moon { display: block; }
+
+        /* ==========================================
+           3. THANH TÌM KIẾM (SEARCH BOX)
            ========================================== */
         .search-box {
             display: flex;
@@ -39,17 +115,17 @@
             margin-bottom: 25px;
             padding: 12px 24px;
             
-            background: #1a1b1e;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px var(--shadow-color);
             transition: all 0.3s ease;
         }
 
         .search-box:focus-within,
         .search-box:hover {
-            border-color: rgba(16, 185, 129, 0.5);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 12px rgba(16, 185, 129, 0.2);
+            border-color: var(--hover-border);
+            box-shadow: 0 8px 25px var(--shadow-color), 0 0 12px var(--hover-glow);
             transform: translateY(-2px);
         }
 
@@ -58,7 +134,7 @@
             width: 20px !important;
             height: 20px !important;
             min-width: 20px;
-            color: #8e9297;
+            color: var(--text-sub);
             flex-shrink: 0;
             transition: color 0.3s ease;
         }
@@ -73,18 +149,17 @@
             background: transparent !important;
             border: none !important;
             outline: none !important;
-            color: #ffffff;
+            color: var(--text-main);
             font-size: 15px;
             font-weight: 500;
         }
 
         .search-input::placeholder {
-            color: #8e9297;
+            color: var(--text-sub);
         }
 
-
         /* ==========================================
-           2. KHỐI NỘI DUNG CHÍNH (Layout Flexbox 2 cột)
+           4. KHỐI NỘI DUNG CHÍNH (Layout Flexbox 2 cột)
            ========================================== */
         .main-container {
             width: 100%;
@@ -96,11 +171,11 @@
         /* CỘT TRÁI - SIDEBAR */
         .sidebar {
             width: 260px;
-            background-color: #1a1b1e;
+            background-color: var(--card-bg);
             padding: 20px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px var(--shadow-color);
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -110,14 +185,14 @@
 
         .sidebar:hover {
             transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 10px rgba(16, 185, 129, 0.15);
+            border-color: var(--hover-border);
+            box-shadow: 0 12px 25px var(--shadow-color), 0 0 10px var(--hover-glow);
         }
 
         .sidebar-title {
             font-size: 24px;
             font-weight: bold;
-            color: #8e9297;
+            color: var(--text-sub);
             margin-bottom: 10px;
             padding-left: 10px;
         }
@@ -127,7 +202,7 @@
             display: block;
             padding: 12px 18px;
             border-radius: 12px;
-            color: #c9cdd1;
+            color: var(--text-main);
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
@@ -143,8 +218,8 @@
         }
 
         .nav-btn:hover:not(.active) {
-            background-color: #2b2d31;
-            color: #ffffff;
+            background-color: var(--hover-bg);
+            color: var(--text-main);
             transform: translateX(4px);
         }
 
@@ -162,11 +237,11 @@
         }
 
         .item-card {
-            background-color: #1a1b1e;
+            background-color: var(--card-bg);
             border-radius: 20px;
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 6px 16px var(--shadow-color);
             display: flex;
             align-items: center;
             gap: 20px;
@@ -175,8 +250,8 @@
 
         .item-card:hover {
             transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 10px rgba(16, 185, 129, 0.15);
+            border-color: var(--hover-border);
+            box-shadow: 0 12px 25px var(--shadow-color), 0 0 10px var(--hover-glow);
         }
 
         .item-icon {
@@ -184,19 +259,19 @@
             height: 70px;
             border-radius: 16px;
             object-fit: cover;
-            background-color: #2b2d31;
+            background-color: var(--hover-bg);
             flex-shrink: 0;
         }
 
         .item-info h3 {
             font-size: 18px;
-            color: #ffffff;
+            color: var(--text-main);
             margin-bottom: 6px;
         }
 
         .item-info p {
             font-size: 14px;
-            color: #9da2a8;
+            color: var(--text-sub);
             line-height: 1.4;
         }
 
@@ -212,26 +287,48 @@
     </style>
 </head>
 <body>
-<!-- NƠI HIỂN THỊ LOGO -->
-<div id="logo-container"></div>
 
-<!-- SCRIPT NẠP LOGO -->
-<script>
-    fetch('logo.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('logo-container').innerHTML = data;
-            
-            // Xóa class intro sau 2.2s để trả về trạng thái hover bình thường
-            const brandLogo = document.querySelector('.brand-logo');
-            if (brandLogo) {
-                setTimeout(() => {
-                    brandLogo.classList.remove('intro-animation');
-                }, 2200);
-            }
-        })
-        .catch(err => console.error('Lỗi khi tải logo:', err));
-</script>
+    <!-- NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI -->
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <!-- ICON MẶT TRỜI (CHẾ ĐỘ SÁNG) -->
+        <svg class="icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- ICON MẶT TRĂNG (CHẾ ĐỘ TỐI) -->
+        <svg class="icon-moon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <!-- NƠI HIỂN THỊ LOGO -->
+    <div id="logo-container"></div>
+
+    <!-- SCRIPT NẠP LOGO -->
+    <script>
+        fetch('logo.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('logo-container').innerHTML = data;
+                
+                // Xóa class intro sau 2.2s để trả về trạng thái hover bình thường
+                const brandLogo = document.querySelector('.brand-logo');
+                if (brandLogo) {
+                    setTimeout(() => {
+                        brandLogo.classList.remove('intro-animation');
+                    }, 2200);
+                }
+            })
+            .catch(err => console.error('Lỗi khi tải logo:', err));
+    </script>
+
     <!-- 1. KHỐI THANH TÌM KIẾM BÊN TRÊN -->
     <div class="search-box">
         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -278,7 +375,29 @@
 
     </div>
 
+    <!-- SCRIPT CHUYỂN ĐỔI GIAO DIỆN & XỬ LÝ ACTIVE BUTTON -->
     <script>
+        // 1. Quản lý Theme Light/Dark Mode
+        const themeToggleBtn = document.getElementById("themeToggle");
+        const savedTheme = localStorage.getItem("theme");
+
+        // Đọc cài đặt trước đó (nếu đã từng bật Dark)
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+        }
+
+        // Sự kiện click chuyển chế độ
+        themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        });
+
+        // 2. Quản lý trạng thái Active cho các nút Sidebar
         const navButtons = document.querySelectorAll('.sidebar .nav-btn');
 
         navButtons.forEach(button => {
