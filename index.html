@@ -73,16 +73,19 @@
             margin-bottom: 24px;
         }
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #1a73e8;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
+    display: block; /* Ép mỗi nút nằm riêng 1 hàng ngang */
+    width: 200px; /* Thu gọn kích thước nút vừa với chữ */
+    margin: 12px auto 0 auto; /* Căn giữa nút */
+    
+    padding: 12px 24px;
+    background-color: #1a73e8;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif; /* Cố định font Nunito cho nút */
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
         .btn:hover {
             background-color: #388af5;
             transform: scale(1.05);
@@ -183,7 +186,7 @@
      z-index: -2;
    }
 
-        body.dark-node .brand-logo {
+        body.dark-mode .brand-logo {
             background: rgba(20, 20, 25, 0.65);
         }
 
