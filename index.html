@@ -269,6 +269,18 @@
 .brand-logo.intro-animation .brand-name span:nth-child(11) { animation-delay: 1.4s; }
 .brand-logo.intro-animation .brand-name span:nth-child(12) { animation-delay: 1.5s; }
 
+    /* Chỉnh kích thước và màu mặc định cho icon SVG */
+.icon-btn .nav-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #333333; /* Màu icon ở chế độ Sáng */
+    transition: stroke 0.3s ease;
+}
+
+/* Đổi màu icon thành trắng khi ở Dark Mode */
+body.dark-mode .icon-btn .nav-icon {
+    stroke: #ffffff;
+}
 /* Mở rộng chiều rộng khung logo */
 @keyframes expandLogo {
     0% {
@@ -354,9 +366,20 @@
     </div>
 </a>
     <div class="top-controls">
-        <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">🌓</button>
-        <button id="settingsBtn" class="icon-btn" title="Cài đặt">⚙️</button>
-    </div>
+    <!-- Nút Sáng/Tối -->
+    <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    <!-- Nút Cài đặt -->
+    <button id="settingsBtn" class="icon-btn" title="Cài đặt">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+</div>
     
     
     <video autoplay muted loop playsinline preload="auto" id="myVideo" poster="Screenshot 2026-09-01 160602.png">
