@@ -1,1 +1,104 @@
+<a href="index.html" class="brand-logo intro-animation" id="brandLogo">
+    <img src="Logo - 1 - Edited.png" alt="Logo" class="logo-img">
+    <div class="brand-name">
+        <span>S</span><span>L</span><span>E</span><span>E</span><span>P</span><span>Y</span>
+        <span class="space">&nbsp;</span>
+        <span>W</span><span>H</span><span>A</span><span>L</span><span>E</span>
+    </div>
+</a>
+<style>
+/* KHỐI LOGO SLEEPY WHALE */
+.brand-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 16px 6px 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    
+    background: rgba(255, 255, 255, 0.65);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
 
+.brand-logo:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.brand-logo:active {
+    transform: scale(0.97);
+}
+
+.logo-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.brand-name {
+    display: flex;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: #2575fc;
+}
+
+.brand-name span {
+    display: inline-block;
+}
+
+/* ANIMATION BUNG KHUNG & SÓNG CHỮ */
+.brand-logo.intro-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: expandLogo 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes expandLogo {
+    0% { max-width: 61px; padding-right: 8px; }
+    100% { max-width: 320px; padding-right: 16px; }
+}
+
+@keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.brand-logo.intro-animation .brand-name span {
+    animation: wave 1s 1 ease-in-out;
+}
+
+.brand-logo.intro-animation .brand-name span:nth-child(1)  { animation-delay: 0.4s; }
+.brand-logo.intro-animation .brand-name span:nth-child(2)  { animation-delay: 0.5s; }
+.brand-logo.intro-animation .brand-name span:nth-child(3)  { animation-delay: 0.6s; }
+.brand-logo.intro-animation .brand-name span:nth-child(4)  { animation-delay: 0.7s; }
+.brand-logo.intro-animation .brand-name span:nth-child(5)  { animation-delay: 0.8s; }
+.brand-logo.intro-animation .brand-name span:nth-child(6)  { animation-delay: 0.9s; }
+.brand-logo.intro-animation .brand-name span:nth-child(8)  { animation-delay: 1.1s; }
+.brand-logo.intro-animation .brand-name span:nth-child(9)  { animation-delay: 1.2s; }
+.brand-logo.intro-animation .brand-name span:nth-child(10) { animation-delay: 1.3s; }
+.brand-logo.intro-animation .brand-name span:nth-child(11) { animation-delay: 1.4s; }
+.brand-logo.intro-animation .brand-name span:nth-child(12) { animation-delay: 1.5s; }
+
+.brand-logo:hover .brand-name span { animation: wave 0.6s ease-in-out; }
+.brand-logo:hover .brand-name span:nth-child(1)  { animation-delay: 0.05s; }
+.brand-logo:hover .brand-name span:nth-child(2)  { animation-delay: 0.1s; }
+.brand-logo:hover .brand-name span:nth-child(3)  { animation-delay: 0.15s; }
+.brand-logo:hover .brand-name span:nth-child(4)  { animation-delay: 0.2s; }
+.brand-logo:hover .brand-name span:nth-child(5)  { animation-delay: 0.25s; }
+.brand-logo:hover .brand-name span:nth-child(6)  { animation-delay: 0.3s; }
+.brand-logo:hover .brand-name span:nth-child(8)  { animation-delay: 0.35s; }
+.brand-logo:hover .brand-name span:nth-child(9)  { animation-delay: 0.4s; }
+.brand-logo:hover .brand-name span:nth-child(10) { animation-delay: 0.45s; }
+.brand-logo:hover .brand-name span:nth-child(11) { animation-delay: 0.5s; }
+.brand-logo:hover .brand-name span:nth-child(12) { animation-delay: 0.55s; }
+</style>
