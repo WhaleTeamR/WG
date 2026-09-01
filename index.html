@@ -130,6 +130,8 @@
         gap: 12px;
         padding: 6px 16px 6px 10px;
         border-radius: 50px;
+
+        text-decoration: none;
         
         background: rgba(255, 255, 255, 0.65);
         -webkit-backdrop-filter: blur(10px);
@@ -143,6 +145,9 @@
         transform: scale(1.025);
         border-color: rgba(16, 185, 129, 0.4);
         box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+    }
+    .brand-logo:active {
+        transform: scale(0.97);
     }
 
     .logo-img {
@@ -331,20 +336,18 @@
 </style>
 </head>
 <body>
-    <!-- KHỐI LOGO GÓC TRÊN BÊN TRÁI -->
-    <div class="brand-logo">
+    <!-- KHỐI LOGO GÓC TRÊN BÊN TRÁI --->
+    <a href="duong-link-cua-ban.html" class="brand-logo">
     <!-- Ảnh logo hình tròn -->
     <img src="Logo - 1 - Edited.png" alt="Logo" class="logo-img">
-    
+
     <!-- Chữ gợn sóng từng ký tự -->
     <div class="brand-name">
         <span>S</span><span>L</span><span>E</span><span>E</span><span>P</span><span>Y</span>
         <span class="space">&nbsp;</span>
         <span>W</span><span>H</span><span>A</span><span>L</span><span>E</span>
     </div>
-</div>
-
-    
+</a>
     <div class="top-controls">
         <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">🌓</button>
         <button id="settingsBtn" class="icon-btn" title="Cài đặt">⚙️</button>
