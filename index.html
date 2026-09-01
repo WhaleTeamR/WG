@@ -62,7 +62,7 @@
         animation-delay: 0.3s;
     }
 
-    /* Khi đã xem rồi hoặc người dùng bấm background thì bỏ hoạt ảnh */
+    /* Bỏ hoạt ảnh khi đã xem hoặc click background */
     body.skip-animation .card {
         opacity: 1 !important;
         transform: translate(0, 0) !important;
@@ -87,6 +87,12 @@
     body.skip-animation .btn {
         opacity: 1 !important;
         transform: scale(1) !important;
+        animation: none !important;
+    }
+
+    body.skip-animation .icon-btn {
+        opacity: 1 !important;
+        transform: scale(1) rotate(0deg) !important;
         animation: none !important;
     }
 
@@ -160,7 +166,7 @@
         border-radius: 8px;
         font-family: 'Inter', sans-serif;
         font-weight: bold;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         opacity: 0;
         animation: popInBtn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
@@ -181,8 +187,10 @@
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
-    .btn:active{
-        transform: scale(0.95);
+    
+    /* ĐÃ KHÔI PHỤC HIỆU ỨNG ACTIVE CHO NÚT */
+    .btn:active {
+        transform: scale(0.95) !important;
     }
 
     /* VIDEO NỀN */
@@ -196,7 +204,7 @@
         z-index: -2;
     }
 
-    /* CONTROLS GÓC PHẢI - GIỮ CỐ ĐỊNH NẰM NGANG */
+    /* CONTROLS GÓC PHẢI */
     .top-controls {
         position: fixed;
         top: 20px;
@@ -219,6 +227,7 @@
         font-size: 20px;
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        /* Thêm lại transition đầy đủ để nút góc có hiệu ứng mượt */
         transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         display: flex;
         justify-content: center;
@@ -236,10 +245,12 @@
     }
 
     .icon-btn:hover {
-        transform: scale(1.1) rotate(0deg) !important;
+        transform: scale(1.1);
         background: rgba(255, 255, 255, 1);
     }
-    .icon-btn:active { transform: scale(0.9) !important; }
+    .icon-btn:active { 
+        transform: scale(0.9) !important; 
+    }
 
     .icon-btn .nav-icon {
         width: 20px;
@@ -313,32 +324,26 @@
     </div>
 
     <script>
-        // KIỂM TRA SESSIONSTORAGE ĐỂ BỎ QUA HOẠT ẢNH NẾU ĐÃ XEM TRONG PHIÊN NÀY
         if (sessionStorage.getItem("hasViewedAnimation")) {
             document.body.classList.add("skip-animation");
         } else {
-            // Đánh dấu là đã xem để các lần sau vào/load lại trang sẽ hiện ra ngay lập tức
             sessionStorage.setItem("hasViewedAnimation", "true");
         }
 
-        // TÍNH NĂNG BẤM VÀO BACKGROUND ĐỂ ĐƯA CARD VỀ TRẠNG THÁI BAN ĐẦU NGAY LẬP TỨC
         window.addEventListener('click', function(e) {
             const card = document.querySelector('.card');
             const topControls = document.querySelector('.top-controls');
             const logoContainer = document.querySelector('#logo-container');
 
-            // Kiểm tra xem click có nằm ngoài Card, nút điều khiển và logo không
             const clickedInsideCard = card.contains(e.target);
             const clickedInsideControls = topControls.contains(e.target);
             const clickedInsideLogo = logoContainer.contains(e.target);
 
             if (!clickedInsideCard && !clickedInsideControls && !clickedInsideLogo) {
-                // Thêm class skip-animation để dừng toàn bộ hoạt ảnh và hiện nguyên trạng card
                 document.body.classList.add("skip-animation");
             }
         });
 
-        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html
         fetch('logo.html')
             .then(response => response.text())
             .then(data => {
@@ -471,7 +476,6 @@
 
         animate();
 
-        // Chỉ tạo hiệu ứng nổ pháo hoa hạt nếu chưa bỏ qua hoạt ảnh
         window.addEventListener('load', () => {
             if (!document.body.classList.contains("skip-animation")) {
                 setTimeout(() => {
