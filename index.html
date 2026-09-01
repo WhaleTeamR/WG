@@ -62,6 +62,34 @@
         animation-delay: 0.3s;
     }
 
+    /* Khi đã xem rồi hoặc người dùng bấm background thì bỏ hoạt ảnh */
+    body.skip-animation .card {
+        opacity: 1 !important;
+        transform: translate(0, 0) !important;
+        animation: none !important;
+    }
+
+    body.skip-animation h1 {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        animation: none !important;
+    }
+
+    body.skip-animation .typing-container {
+        opacity: 1 !important;
+    }
+
+    body.skip-animation .typing-text {
+        width: 100% !important;
+        animation: none !important;
+    }
+
+    body.skip-animation .btn {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        animation: none !important;
+    }
+
     @keyframes slideDownCard {
         0% { translate: 0 -150vh; opacity: 0; }
         100% { translate: 0 0; opacity: 1; }
@@ -239,11 +267,9 @@
 </head>
 <body>
 
-    <!-- THAY IFRAME BẰNG DIV CONTAINER ĐỂ LOAD TRỰC TIẾP CODE TỪ LOGO.HTML -->
     <div id="logo-container"></div>
     
     <div class="top-controls">
-        <!-- Nút Sáng/Tối bên trái -->
         <button id="themeToggle" class="icon-btn" title="Chuyển chế độ Sáng/Tối">
             <svg class="nav-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="5"></circle>
@@ -261,7 +287,6 @@
             </svg>
         </button>
 
-        <!-- Nút Cài đặt bên phải -->
         <button id="settingsBtn" class="icon-btn" title="Cài đặt">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
@@ -288,7 +313,32 @@
     </div>
 
     <script>
-        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html VÀO TRANG MÀ KHÔNG DÙNG IFRAME
+        // KIỂM TRA SESSIONSTORAGE ĐỂ BỎ QUA HOẠT ẢNH NẾU ĐÃ XEM TRONG PHIÊN NÀY
+        if (sessionStorage.getItem("hasViewedAnimation")) {
+            document.body.classList.add("skip-animation");
+        } else {
+            // Đánh dấu là đã xem để các lần sau vào/load lại trang sẽ hiện ra ngay lập tức
+            sessionStorage.setItem("hasViewedAnimation", "true");
+        }
+
+        // TÍNH NĂNG BẤM VÀO BACKGROUND ĐỂ ĐƯA CARD VỀ TRẠNG THÁI BAN ĐẦU NGAY LẬP TỨC
+        window.addEventListener('click', function(e) {
+            const card = document.querySelector('.card');
+            const topControls = document.querySelector('.top-controls');
+            const logoContainer = document.querySelector('#logo-container');
+
+            // Kiểm tra xem click có nằm ngoài Card, nút điều khiển và logo không
+            const clickedInsideCard = card.contains(e.target);
+            const clickedInsideControls = topControls.contains(e.target);
+            const clickedInsideLogo = logoContainer.contains(e.target);
+
+            if (!clickedInsideCard && !clickedInsideControls && !clickedInsideLogo) {
+                // Thêm class skip-animation để dừng toàn bộ hoạt ảnh và hiện nguyên trạng card
+                document.body.classList.add("skip-animation");
+            }
+        });
+
+        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html
         fetch('logo.html')
             .then(response => response.text())
             .then(data => {
@@ -421,22 +471,24 @@
 
         animate();
 
+        // Chỉ tạo hiệu ứng nổ pháo hoa hạt nếu chưa bỏ qua hoạt ảnh
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                const h1 = document.querySelector('h1');
-                if(!h1) return;
-                
-                const rect = h1.getBoundingClientRect();
-                const startX = rect.left + rect.width / 2;
-                const startY = rect.top + rect.height / 2;
+            if (!document.body.classList.contains("skip-animation")) {
+                setTimeout(() => {
+                    const h1 = document.querySelector('h1');
+                    if(!h1) return;
+                    
+                    const rect = h1.getBoundingClientRect();
+                    const startX = rect.left + rect.width / 2;
+                    const startY = rect.top + rect.height / 2;
 
-                for(let i = 0; i < 70; i++) {
-                    burstParticles.push(new BlueBurstParticle(startX, startY));
-                }
-            }, 1300); 
+                    for(let i = 0; i < 70; i++) {
+                        burstParticles.push(new BlueBurstParticle(startX, startY));
+                    }
+                }, 1300); 
+            }
         });
 
-        // Chức năng Cài đặt
         const settingsBtn = document.getElementById('settingsBtn');
         if(settingsBtn) {
             settingsBtn.addEventListener('click', function() {
@@ -444,7 +496,6 @@
             });
         }
 
-        // Toggle giao diện
         const themeToggleBtn = document.getElementById("themeToggle");
         const savedTheme = localStorage.getItem("theme");
 
