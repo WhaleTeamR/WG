@@ -148,13 +148,57 @@
         }
     
 /* Style cho tên web bên cạnh logo */
-        .brand-name {
-            font-family: 'Nunito', sans-serif;
-            font-size: 20px;                     /* Đổi từ 40px xuống 20px */
-            font-weight: 800;
-            color: #1a73e8;           
-            letter-spacing: 0.5px;
-        }
+        /* Khung chứa chữ */
+.brand-name {
+    display: flex;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a73e8; /* Giữ màu xanh rực rỡ */
+    letter-spacing: 0.5px;
+}
+
+/* Định dạng từng chữ cái */
+.brand-name span {
+    display: inline-block;
+    transition: color 0.3s ease;
+    /* Tên animation: wave | Thời gian 1 vòng: 2s | Lặp vô hạn */
+    animation: wave 2s infinite ease-in-out; 
+}
+
+/* Khoảng cách giữa 2 từ SLEEPY và WHALE */
+.brand-name span.space {
+    width: 6px; 
+}
+
+/* Kiểu hoạt ảnh phóng to + nảy nhẹ lên */
+@keyframes wave {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    20% {
+        transform: scale(1.3) translateY(-3px); /* Phóng to 1.3 lần và nhích nhẹ lên */
+        text-shadow: 0 0 10px rgba(26, 115, 232, 0.6); /* Glow nhẹ khi phóng to */
+    }
+    40% {
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Tạo độ trễ (delay) từng chữ cái để tạo hiệu ứng gợn sóng chạy từ trái sang phải */
+.brand-name span:nth-child(1)  { animation-delay: 0.0s; }
+.brand-name span:nth-child(2)  { animation-delay: 0.1s; }
+.brand-name span:nth-child(3)  { animation-delay: 0.2s; }
+.brand-name span:nth-child(4)  { animation-delay: 0.3s; }
+.brand-name span:nth-child(5)  { animation-delay: 0.4s; }
+.brand-name span:nth-child(6)  { animation-delay: 0.5s; }
+/* nth-child(7) là dấu cách (space) */
+.brand-name span:nth-child(8)  { animation-delay: 0.7s; }
+.brand-name span:nth-child(9)  { animation-delay: 0.8s; }
+.brand-name span:nth-child(10) { animation-delay: 0.9s; }
+.brand-name span:nth-child(11) { animation-delay: 1.0s; }
+.brand-name span:nth-child(12) { animation-delay: 1.1s; }
 
         .icon-btn {
             background: rgba(255, 255, 255, 0.85);
@@ -213,9 +257,10 @@
 </head>
 <body>
     <!-- KHỐI LOGO GÓC TRÊN BÊN TRÁI -->
-    <div class="brand-logo">
-        <img src="Logo - 1 - Edited.png" alt="Logo" class="logo-img">
-        <span class="brand-name">SLEEPY WHALE</span>
+    <div class="brand-name">
+        <span>S</span><span>L</span><span>E</span><span>E</span><span>P</span><span>Y</span>
+        <span class="space">&nbsp;</span>
+        <span>W</span><span>H</span><span>A</span><span>L</span><span>E</span>
     </div>
 
     
