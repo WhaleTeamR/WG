@@ -27,8 +27,8 @@
             --text-sub: #6b7280;
             --shadow-color: rgba(0, 0, 0, 0.08);
             --hover-bg: #f9fafb;
-            --hover-border: rgba(26, 115, 232, 0.5); /* ĐÃ ĐỔI SANG XANH NƯỚC BIỂN */
-            --hover-glow: rgba(26, 115, 232, 0.15);  /* ĐÃ ĐỔI SANG XANH NƯỚC BIỂN */
+            --hover-border: rgba(26, 115, 232, 0.5);
+            --hover-glow: rgba(26, 115, 232, 0.15);
         }
 
         /* CHẾ ĐỘ TỐI (DARK MODE) */
@@ -40,8 +40,8 @@
             --text-sub: #8e9297;
             --shadow-color: rgba(0, 0, 0, 0.3);
             --hover-bg: #2b2d31;
-            --hover-border: rgba(26, 115, 232, 0.5); /* ĐÃ ĐỔI SANG XANH NƯỚC BIỂN */
-            --hover-glow: rgba(26, 115, 232, 0.2);   /* ĐÃ ĐỔI SANG XANH NƯỚC BIỂN */
+            --hover-border: rgba(26, 115, 232, 0.5);
+            --hover-glow: rgba(26, 115, 232, 0.2);
         }
 
         /* NỀN TOÀN TRANG WIDGET */
@@ -57,7 +57,7 @@
         }
 
         /* ==========================================
-           2. NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI (GÓC TRÊN PHẢI)
+           2. NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI
            ========================================== */
         .theme-toggle-btn {
             position: fixed;
@@ -96,7 +96,6 @@
             transition: transform 0.3s ease, stroke 0.3s ease;
         }
 
-        /* Ẩn/Hiện icon theo chế độ */
         .icon-sun { display: block; }
         .icon-moon { display: none; }
 
@@ -114,7 +113,6 @@
             max-width: 900px;
             margin-bottom: 25px;
             padding: 12px 24px;
-            
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 50px;
@@ -129,7 +127,6 @@
             transform: translateY(-2px);
         }
 
-        /* KHỐNG CHẾ KÍCH THƯỚC KÍNH LÚP */
         .search-icon {
             width: 20px !important;
             height: 20px !important;
@@ -140,10 +137,9 @@
         }
 
         .search-box:focus-within .search-icon {
-            color: #1a73e8; /* ĐÃ ĐỔI MÀU KÍNH LÚP SANG XANH NƯỚC BIỂN */
+            color: #1a73e8;
         }
 
-        /* Ô INPUT NHẬP TỪ KHÓA */
         .search-input {
             width: 100%;
             background: transparent !important;
@@ -159,7 +155,7 @@
         }
 
         /* ==========================================
-           4. KHỐI NỘI DUNG CHÍNH (Layout Flexbox 2 cột)
+           4. KHỐI NỘI DUNG CHÍNH (Layout Flexbox)
            ========================================== */
         .main-container {
             width: 100%;
@@ -181,6 +177,7 @@
             gap: 10px;
             flex-shrink: 0;
             transition: all 0.3s ease;
+            height: fit-content;
         }
 
         .sidebar:hover {
@@ -197,7 +194,6 @@
             padding-left: 10px;
         }
 
-        /* Các Nút Menu Bên Trái */
         .nav-btn {
             display: block;
             padding: 12px 18px;
@@ -208,10 +204,14 @@
             font-size: 15px;
             transition: all 0.2s ease;
             background: transparent;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
         }
 
         .nav-btn.active {
-            background-color: #1a73e8; /* ĐÃ ĐỔI NỀN ACTIVE SANG XANH NƯỚC BIỂN */
+            background-color: #1a73e8;
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
             transition: all 0.4s ease;
@@ -231,9 +231,18 @@
         /* CỘT PHẢI - CONTENT AREA */
         .content-area {
             flex: 1;
-            display: flex;
+        }
+
+        /* Ẩn tất cả danh sách mặc định */
+        .tab-content {
+            display: none;
             flex-direction: column;
             gap: 15px;
+        }
+
+        /* Chỉ hiển thị danh sách có class active */
+        .tab-content.active {
+            display: flex;
         }
 
         .item-card {
@@ -290,7 +299,6 @@
 
     <!-- NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI -->
     <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
-        <!-- ICON MẶT TRỜI (CHẾ ĐỘ SÁNG) -->
         <svg class="icon-sun" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -302,7 +310,6 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <!-- ICON MẶT TRĂNG (CHẾ ĐỘ TỐI) -->
         <svg class="icon-moon" viewBox="0 0 24 24">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
@@ -311,14 +318,12 @@
     <!-- NƠI HIỂN THỊ LOGO -->
     <div id="logo-container"></div>
 
-    <!-- SCRIPT NẠP LOGO -->
     <script>
         fetch('logo.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('logo-container').innerHTML = data;
                 
-                // Xóa class intro sau 2.2s để trả về trạng thái hover bình thường
                 const brandLogo = document.querySelector('.brand-logo');
                 if (brandLogo) {
                     setTimeout(() => {
@@ -344,30 +349,63 @@
         <!-- Cột Bên Trái: Danh Mục Nav -->
         <div class="sidebar">
             <div class="sidebar-title">Categories</div>
-            <a href="#" class="nav-btn active">Web</a>
-            <a href="#" class="nav-btn">Line 2</a>
-            <a href="#" class="nav-btn">Line 3</a>
-            <a href="#" class="nav-btn">Line 4</a>
+            <button class="nav-btn active" data-tab="tab-web">Web</button>
+            <button class="nav-btn" data-tab="tab-line2">Line 2</button>
+            <button class="nav-btn" data-tab="tab-line3">Line 3</button>
+            <button class="nav-btn" data-tab="tab-line4">Line 4</button>
         </div>
 
-        <!-- Cột Bên Phải: Danh Sách Thẻ Nội Dung -->
+        <!-- Cột Bên Phải: Danh Sách Thẻ Nội Dung Tương Ứng -->
         <div class="content-area">
             
-            <!-- Card 1 -->
-            <div class="item-card">
-                <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Name 1</h3>
-                    <p>Name-1's Information</p>
+            <!-- DANH SÁCH CHO TAB WEB -->
+            <div id="tab-web" class="tab-content active">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 1</h3>
+                        <p>Name-1's Information</p>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <img src="1.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 2</h3>
+                        <p>Name-2's Information</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="item-card">
-                <img src="1.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Name 2</h3>
-                    <p>Name-2's Information</p>
+            <!-- DANH SÁCH CHO TAB LINE 2 -->
+            <div id="tab-line2" class="tab-content">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 3 (Line 2)</h3>
+                        <p>Nội dung danh sách thuộc mục Line 2</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH CHO TAB LINE 3 -->
+            <div id="tab-line3" class="tab-content">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 4 (Line 3)</h3>
+                        <p>Nội dung danh sách thuộc mục Line 3</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH CHO TAB LINE 4 -->
+            <div id="tab-line4" class="tab-content">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 5 (Line 4)</h3>
+                        <p>Nội dung danh sách thuộc mục Line 4</p>
+                    </div>
                 </div>
             </div>
 
@@ -375,21 +413,18 @@
 
     </div>
 
-    <!-- SCRIPT CHUYỂN ĐỔI GIAO DIỆN & XỬ LÝ ACTIVE BUTTON -->
+    <!-- SCRIPT XỬ LÝ CHUYỂN TAB VÀ LIGHT/DARK MODE -->
     <script>
         // 1. Quản lý Theme Light/Dark Mode
         const themeToggleBtn = document.getElementById("themeToggle");
         const savedTheme = localStorage.getItem("theme");
 
-        // Đọc cài đặt trước đó (nếu đã từng bật Dark)
         if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
         }
 
-        // Sự kiện click chuyển chế độ
         themeToggleBtn.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
-
             if (document.body.classList.contains("dark-mode")) {
                 localStorage.setItem("theme", "dark");
             } else {
@@ -397,14 +432,27 @@
             }
         });
 
-        // 2. Quản lý trạng thái Active cho các nút Sidebar
+        // 2. Quản lý Chuyển Danh Sách Khi Click Vào Nút Sidebar
         const navButtons = document.querySelectorAll('.sidebar .nav-btn');
+        const tabContents = document.querySelectorAll('.content-area .tab-content');
 
         navButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
+            button.addEventListener('click', function() {
+                // Hủy active của tất cả các nút
                 navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Ẩn tất cả nội dung bên phải
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Bật active cho nút vừa click
                 this.classList.add('active');
+
+                // Lấy ID tương ứng và hiển thị danh sách bên phải
+                const targetTabId = this.getAttribute('data-tab');
+                const targetContent = document.getElementById(targetTabId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
             });
         });
     </script>
