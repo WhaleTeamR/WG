@@ -491,6 +491,23 @@
                 }
             });
         }
+        // Lắng nghe tất cả các phần tử có animation
+document.querySelectorAll('.card, h1, .btn, .icon-btn').forEach(el => {
+    el.addEventListener('animationend', () => {
+        // Sau khi animation chạy xong, gỡ bỏ animation để transition hover hoạt động mượt mà
+        el.style.animation = 'none';
+        el.style.opacity = '1';
+        
+        // Trả lại transform chuẩn để transition nhận diện
+        if (el.classList.contains('card')) {
+            el.style.transform = 'translate(0, 0)';
+        } else if (el.classList.contains('icon-btn')) {
+            el.style.transform = 'scale(1) rotate(0deg)';
+        } else {
+            el.style.transform = 'scale(1)';
+        }
+    });
+});
     </script>
 </body>
 </html>
