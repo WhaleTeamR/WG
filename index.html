@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+S<!DOCTYPE html>
 <html lang="vi">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -219,7 +219,7 @@
         font-size: 20px;
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -344,20 +344,12 @@
             }
         });
 
-        // TỰ ĐỘNG NẠP LOGO TỪ FILE logo.html
-        fetch('logo.html')
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, 'text/html');
-                
-                const styles = doc.querySelectorAll('style');
-                const bodyContent = doc.body.innerHTML;
-
-                styles.forEach(style => document.head.appendChild(style));
-                document.getElementById('logo-container').innerHTML = bodyContent;
-            })
-            .catch(err => console.error('Lỗi load logo:', err));
+       fetch('logo.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('logo-container').innerHTML = data;
+    })
+    .catch(err => console.error('Lỗi load logo:', err));
 
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
