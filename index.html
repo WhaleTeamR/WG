@@ -207,39 +207,47 @@
         gap: 12px;
     }
 
-    /* ICON BUTTONS */
-    .icon-btn {
-        background: rgba(255, 255, 255, 0.85);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        border: none;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        transition: all 0.3s ease;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        animation: spinAndScale 1.2s cubic-bezier(0.1, 1, 0.2, 1) forwards;
-    }
+.icon-btn {
+    background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    
+    /* Khai báo giá trị ban đầu để transition hoạt động */
+    transform: scale(1) rotate(0deg); 
+    /* Chỉ định rõ chuyển động cho transform và background */
+    transition: transform 0.3s ease, background 0.3s ease; 
 
-    #themeToggle { animation-delay: 0.2s; }
-    #settingsBtn { animation-delay: 0.35s; }
+    animation: spinAndScale 1.2s cubic-bezier(0.1, 1, 0.2, 1) forwards;
+}
 
-    @keyframes spinAndScale {
-        0% { transform: scale(0) rotate(-360deg); opacity: 0; }
-        100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
+#themeToggle { animation-delay: 0.2s; }
+#settingsBtn { animation-delay: 0.35s; }
 
-    .icon-btn:hover {
-        transform: scale(1.1) rotate(0deg) !important;
-        background: rgba(255, 255, 255, 1);
-    }
-    .icon-btn:active { transform: scale(0.9) !important; }
+@keyframes spinAndScale {
+    0% { transform: scale(0) rotate(-360deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* BỎ !important đi để transition hoạt động mượt mà */
+.icon-btn:hover {
+    transform: scale(1.1) rotate(0deg);
+    background: rgba(255, 255, 255, 1);
+}
+
+.icon-btn:active {
+    transform: scale(0.9);
+}
 
     .icon-btn .nav-icon {
         width: 20px;
