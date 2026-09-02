@@ -330,12 +330,7 @@
     </div>
 
     <script>
-        // KIỂM TRA SESSIONSTORAGE ĐỂ BỎ QUA HOẠT ẢNH NẾU ĐÃ XEM TRONG PHIÊN NÀY
-        if (sessionStorage.getItem("hasViewedAnimation")) {
-            document.body.classList.add("skip-animation");
-        } else {
-            sessionStorage.setItem("hasViewedAnimation", "true");
-        }
+      
 
         // TÍNH NĂNG BẤM VÀO BACKGROUND ĐỂ ĐƯA CARD VỀ TRẠNG THÁI BAN ĐẦU NGAY LẬP TỨC
         window.addEventListener('click', function(e) {
