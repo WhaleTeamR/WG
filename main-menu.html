@@ -67,11 +67,12 @@
     gap: 10px;
 }
 
-/* KIỂU DÁNG NÚT TRÒN CHUNG */
+/* KIỂU DÁNG NÚT TRÒN SANG VIÊN THUỐC KHI HOVER */
 .action-btn {
-    width: 48px;
+    min-width: 48px;
     height: 48px;
-    border-radius: 50%;
+    padding: 0 13px;
+    border-radius: 25px;
     border: 1px solid var(--border-color);
     background: var(--card-bg);
     -webkit-backdrop-filter: blur(10px);
@@ -80,15 +81,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0px;
     box-shadow: 0 4px 15px var(--shadow-color);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    overflow: hidden;
 }
 
+/* CHỮ BÊN TRONG NÚT - MẶC ĐỊNH ẨN */
+.btn-label {
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease, 
+                margin 0.35s ease;
+}
+
+/* KHI HOVER: DÃN RỘNG NÚT VÀ HIỆN CHỮ, ĐẨY CÁC NÚT KHÁC MẶC ĐỊNH */
 .action-btn:hover {
-    transform: scale(1.1);
     border-color: var(--hover-border);
     box-shadow: 0 4px 15px var(--hover-glow);
+    padding: 0 16px;
+}
+
+.action-btn:hover .btn-label {
+    max-width: 100px;
+    opacity: 1;
+    margin-right: 8px;
 }
 
 .action-btn svg {
@@ -99,7 +122,7 @@
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: transform 0.3s ease, stroke 0.3s ease;
+    flex-shrink: 0;
 }
         /* ẨN / HIỆN ICON MẶT TRỜI VÀ MẶT TRĂNG */
 #themeToggle .icon-sun {
@@ -317,27 +340,30 @@ a.item-card {
     </style>
 </head>
 <body>
-        <!-- KHỐI NÚT ĐIỀU KHIỂN GÓC TRÊN PHẢI -->
+<!-- KHỐI NÚT ĐIỀU KHIỂN GÓC TRÊN PHẢI -->
 <div class="header-actions">
 
-    <!-- 1. NÚT LOGIN (DẤU CỘNG) -->
+    <!-- 1. NÚT LOGIN -->
     <a href="login.html" class="action-btn" id="loginBtn" aria-label="Login">
+        <span class="btn-label">Login</span>
         <svg viewBox="0 0 24 24">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
     </a>
 
-    <!-- 2. NÚT SETTING (BÁNH RĂNG) -->
+    <!-- 2. NÚT SETTING -->
     <a href="settings.html" class="action-btn" id="settingBtn" aria-label="Settings">
+        <span class="btn-label">Settings</span>
         <svg viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
     </a>
 
-    <!-- 3. NÚT CHUYỂN LIGHT/DARK MODE -->
+    <!-- 3. NÚT THEME TOGGLE -->
     <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
+        <span class="btn-label mode-text">Light</span>
         <svg class="icon-sun" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -456,23 +482,30 @@ a.item-card {
 
     <!-- SCRIPT XỬ LÝ CHUYỂN TAB VÀ LIGHT/DARK MODE -->
     <script>
-        // 1. Quản lý Theme Light/Dark Mode
-        const themeToggleBtn = document.getElementById("themeToggle");
-        const savedTheme = localStorage.getItem("theme");
+const themeToggleBtn = document.getElementById("themeToggle");
+const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
+const savedTheme = localStorage.getItem("theme");
 
-        if (savedTheme === "dark") {
-            document.body.classList.add("dark-mode");
+// Tải theme từ trước
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (modeText) modeText.textContent = "Dark";
+} else {
+    if (modeText) modeText.textContent = "Light";
+}
+
+// Đổi theme và đổi chữ khi click
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        
+        if (modeText) {
+            modeText.textContent = isDark ? "Dark" : "Light";
         }
-
-        themeToggleBtn.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            if (document.body.classList.contains("dark-mode")) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
-            }
-        });
-
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+}
         // 2. Quản lý Chuyển Danh Sách Khi Click Vào Nút Sidebar
         const navButtons = document.querySelectorAll('.sidebar .nav-btn');
         const tabContents = document.querySelectorAll('.content-area .tab-content');
