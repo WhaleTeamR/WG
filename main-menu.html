@@ -62,13 +62,13 @@
         }
 
 /* ==========================================
-   FIX LỖI KHÔNG DÃN + THU VỀ MƯỢT 2 CHIỀU
+   FIX CHUẨN HOÀN HẢO HOẠT ẢNH 2 CHIỀU & HOVER XANH
    ========================================== */
 .action-btn {
     height: 48px;
-    width: max-content; /* Cho phép nút tự phình theo chiều dài chữ */
+    width: max-content;
     min-width: 48px;
-    max-width: 48px;    /* Trạng thái nghỉ: Ép tròn 48px */
+    max-width: 48px; /* Ban đầu ép cứng hình tròn */
     
     border-radius: 24px;
     border: 1px solid var(--border-color);
@@ -84,11 +84,11 @@
     position: relative;
     overflow: hidden;
     
-    /* Chuyển động mượt 2 chiều khi max-width thay đổi */
+    /* Animation mượt cho cả lượt đi và lượt về */
     transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.3s ease, 
                 border-color 0.3s ease,
-                transform 0.15s ease;
+                transform 0.2s ease;
 }
 
 .btn-icon-wrapper {
@@ -108,6 +108,7 @@
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+    transition: stroke 0.3s ease;
 }
 
 .btn-label {
@@ -116,22 +117,32 @@
     font-weight: 700;
     color: var(--text-main);
     opacity: 0;
-    transform: translateX(-8px);
-    padding-right: 16px; /* Khoảng đệm đẹp mắt bên phải chữ */
+    transform: translateX(-10px);
+    padding-right: 16px;
     
-    /* Hiệu ứng biến mất chữ khi thu về */
+    /* Thu về chữ mờ nhanh để không bị tràn viền */
     transition: opacity 0.2s ease, transform 0.2s ease;
-}    
-        /* ==========================================
-   BẮT BUỘC PHẢI CÓ ĐOẠN NÀY ĐỂ KÍCH HOẠT HOVER
-   ========================================== */
-.action-btn:hover {
-    max-width: 200px !important; /* Dãn chiều rộng tối đa ra 200px */
 }
 
-.action-btn:hover .btn-label {
-    opacity: 1 !important;        /* Hiện chữ */
-    transform: translateX(0) !important; /* Trượt chữ về đúng vị trí */
+/* ==========================================
+   HOVER (LƯỢT ĐI) - KHÔI PHỤC VIỀN XANH & PHÓNG TO
+   ========================================== */
+.action-btn:not(.expanded):hover {
+    max-width: 220px !important; /* Dãn ra vừa đụng chữ */
+    border-color: var(--hover-border) !important; /* Viền xanh */
+    box-shadow: 0 4px 15px var(--hover-glow) !important; /* Phát sáng xanh */
+    transform: translateY(-2px) scale(1.02); /* Phóng to nhẹ lên 1 chút */
+}
+
+/* Hoạt ảnh hiện chữ ở LƯỢT ĐI (Có delay nhẹ đợi nút dãn ra) */
+.action-btn:not(.expanded):hover .btn-label {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+}
+
+.action-btn:not(.expanded):active {
+    transform: scale(0.95) !important;
 }
             /* Hiệu ứng biến mất chữ khi thu về */
             transition: opacity 0.2s ease, transform 0.2s ease;
