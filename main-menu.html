@@ -101,6 +101,21 @@
     stroke-linejoin: round;
     transition: transform 0.3s ease, stroke 0.3s ease;
 }
+        /* ẨN / HIỆN ICON MẶT TRỜI VÀ MẶT TRĂNG */
+#themeToggle .icon-sun {
+    display: block;
+}
+#themeToggle .icon-moon {
+    display: none;
+}
+
+/* Khi đang ở Dark Mode: Ẩn Mặt Trời, Hiện Mặt Trăng */
+body.dark-mode #themeToggle .icon-sun {
+    display: none;
+}
+body.dark-mode #themeToggle .icon-moon {
+    display: block;
+}
 
         /* ==========================================
            3. THANH TÌM KIẾM (SEARCH BOX)
