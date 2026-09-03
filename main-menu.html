@@ -56,51 +56,51 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* ==========================================
-           2. NÚT CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI
-           ========================================== */
-        .theme-toggle-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: all 0.3s ease;
-        }
+/* KHỐI NÚT ĐIỀU KHIỂN GÓC TRÊN PHẢI */
+.header-actions {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .theme-toggle-btn:hover {
-            transform: scale(1.1);
-            border-color: var(--hover-border);
-            box-shadow: 0 4px 15px var(--hover-glow);
-        }
+/* KIỂU DÁNG NÚT TRÒN CHUNG */
+.action-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
 
-        .theme-toggle-btn svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--text-main);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: transform 0.3s ease, stroke 0.3s ease;
-        }
+.action-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--hover-border);
+    box-shadow: 0 4px 15px var(--hover-glow);
+}
 
-        .icon-sun { display: block; }
-        .icon-moon { display: none; }
-
-        body.dark-mode .icon-sun { display: none; }
-        body.dark-mode .icon-moon { display: block; }
+.action-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--text-main);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease, stroke 0.3s ease;
+}
 
         /* ==========================================
            3. THANH TÌM KIẾM (SEARCH BOX)
@@ -360,6 +360,44 @@ a.item-card {
             <button class="nav-btn" data-tab="tab-line3">Line 3</button>
             <button class="nav-btn" data-tab="tab-line4">Line 4</button>
         </div>
+        <!-- KHỐI NÚT ĐIỀU KHIỂN GÓC TRÊN PHẢI -->
+<div class="header-actions">
+
+    <!-- 1. NÚT LOGIN (DẤU CỘNG) -->
+    <a href="login.html" class="action-btn" id="loginBtn" aria-label="Login">
+        <svg viewBox="0 0 24 24">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+    </a>
+
+    <!-- 2. NÚT SETTING (BÁNH RĂNG) -->
+    <a href="settings.html" class="action-btn" id="settingBtn" aria-label="Settings">
+        <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </a>
+
+    <!-- 3. NÚT CHUYỂN LIGHT/DARK MODE -->
+    <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
+        <svg class="icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+</div>
 
         <!-- Cột Bên Phải: Danh Sách Thẻ Nội Dung Tương Ứng -->
         <div class="content-area">
