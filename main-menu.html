@@ -62,12 +62,14 @@
         }
 
         /* ==========================================
-           FIX HOẠT ẢNH HOVER MƯỢT 2 CHIỀU (IN & OUT)
+           FIX HOẠT ẢNH CO/DÃN MƯỢT 2 CHIỀU (HOVER IN/OUT)
            ========================================== */
         .action-btn {
             height: 48px;
-            width: 48px; /* Kích thước tròn ban đầu */
-            padding: 0 13px;
+            width: 48px; 
+            max-width: 48px; /* Giữ chuẩn hình tròn ban đầu */
+            
+            padding: 0;
             border-radius: 25px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -82,8 +84,9 @@
             position: relative;
             overflow: hidden;
             
-            /* Đã thêm transition siêu mượt cho TẤT CẢ các thuộc tính khi RỜI CHUỘT */
-            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+            /* Hiệu ứng chuyển động mượt 2 chiều khi dãn ra và co lại */
+            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -100,26 +103,28 @@
             font-weight: 700;
             color: var(--text-main);
             margin-right: 0;
+            margin-left: 0;
             overflow: hidden;
 
-            /* Transition mượt cho chữ khi ẩn đi */
-            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+            transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 0.2s ease, 
-                        margin 0.35s ease;
+                        margin 0.3s ease;
         }
 
-        /* Khi Hover vào */
+        /* Hover vào: dãn dài thành hình viên thuốc */
         .action-btn:not(.expanded):hover {
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
             padding: 0 16px;
-            width: auto; /* Mở rộng theo chữ */
+            width: auto;
+            max-width: 250px;
+            justify-content: flex-start;
         }
 
         .action-btn:not(.expanded):hover .btn-label {
-            max-width: 120px;
+            max-width: 150px;
             opacity: 1;
-            margin-right: 8px;
+            margin-left: 8px;
         }
 
         .action-btn:not(.expanded):active {
@@ -145,8 +150,9 @@
         }
 
         #settingBtn.expanded {
-            width: 260px;
-            height: 200px;
+            width: 280px;
+            max-width: 280px;
+            height: 210px;
             border-radius: 20px;
             padding: 0;
             cursor: default;
@@ -165,9 +171,9 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 16px;
+            padding: 18px;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             opacity: 0;
             transition: opacity 0.25s ease 0.1s;
         }
@@ -182,7 +188,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
         .setting-header h4 {
@@ -213,7 +219,7 @@
         .setting-body {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             flex: 1;
         }
 
@@ -437,7 +443,7 @@
         </svg>
     </a>
 
-    <!-- 2. SETTINGS BUTTON (PHÓNG TO TỰ NÚT) -->
+    <!-- 2. SETTINGS BUTTON -->
     <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
         <span class="btn-label">Settings</span>
         <svg class="icon-gear" viewBox="0 0 24 24">
@@ -615,7 +621,7 @@
         const closeSettingBtn = document.getElementById('closeSettingBtn');
 
         if (settingBtn) {
-            settingBtn.addEventListener('click', (e) => {
+            settingBtn.addEventListener('click', () => {
                 if (!settingBtn.classList.contains('expanded')) {
                     settingBtn.classList.add('expanded');
                 }
@@ -629,7 +635,7 @@
             }
 
             document.addEventListener('click', (e) => {
-                if (!settingBtn.contains(e.target)) {
+                if (settingBtn.classList.contains('expanded') && !settingBtn.contains(e.target)) {
                     settingBtn.classList.remove('expanded');
                 }
             });
