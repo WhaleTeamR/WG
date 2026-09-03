@@ -63,16 +63,11 @@
             right: 20px;
             z-index: 1000;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
         }
 
-        /* KHỐI WRAPPER ĐỂ ĐỊNH VỊ DROPDOWN SETTINGS */
-        .setting-dropdown-wrapper {
-            position: relative;
-        }
-
-        /* KIỂU DÁNG NÚT TRÒN SANG VIÊN THUỐC KHI HOVER */
+        /* KIỂU DÁNG NÚT TRÒN SANG VIÊN THUỐC KHI HOVER (MẶC ĐỊNH) */
         .action-btn {
             min-width: 48px;
             height: 48px;
@@ -88,9 +83,10 @@
             justify-content: center;
             gap: 0px;
             box-shadow: 0 4px 15px var(--shadow-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             overflow: hidden;
+            position: relative;
         }
 
         /* CHỮ BÊN TRONG NÚT - MẶC ĐỊNH ẨN */
@@ -106,19 +102,19 @@
                         margin 0.35s ease;
         }
 
-        /* KHI HOVER: DÃN RỘNG NÚT VÀ HIỆN CHỮ */
-        .action-btn:hover {
+        /* KHI HOVER: DÃN RỘNG NÚT VÀ HIỆN CHỮ (CHỈ KHI CHƯA MỞ RỘNG) */
+        .action-btn:not(.expanded):hover {
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
             padding: 0 16px;
         }
 
         /* HIỆU ỨNG THU NHỎ KHI BẤM (ACTIVE) */
-        .action-btn:active {
+        .action-btn:not(.expanded):active {
             transform: scale(0.92);
         }
 
-        .action-btn:hover .btn-label {
+        .action-btn:not(.expanded):hover .btn-label {
             max-width: 100px;
             opacity: 1;
             margin-right: 8px;
@@ -135,51 +131,87 @@
             flex-shrink: 0;
         }
 
-        /* BẢNG BẢNG SETTINGS DROPDOWN POPUP */
-        .settings-panel {
-            position: absolute;
-            top: calc(100% + 12px);
-            right: 0;
-            width: 280px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 18px;
-            box-shadow: 0 10px 30px var(--shadow-color);
+        /* ==========================================
+           EFFECT: NÚT SETTING PHÁT TRIỂN THÀNH BẢNG
+           ========================================== */
+        #settingBtn {
+            transform-origin: top right; /* Phóng to ra từ phía góc trên bên phải */
+        }
+
+        /* BẬT TRẠNG THÁI MỞ RỘNG (EXPANDED) */
+        #settingBtn.expanded {
+            width: 300px;
+            height: 320px;
+            border-radius: 24px;
+            padding: 20px;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            cursor: default;
+            border-color: var(--hover-border);
+            box-shadow: 0 12px 35px var(--shadow-color), 0 0 15px var(--hover-glow);
+        }
+
+        /* ẨN ICON & LABEL GỐC KHI MỞ RỘNG */
+        #settingBtn.expanded .btn-label,
+        #settingBtn.expanded > svg {
+            display: none;
+        }
+
+        /* NỘI DUNG BÊN TRONG BẢNG CÀI ĐẶT */
+        .setting-content-inner {
             display: none;
             flex-direction: column;
-            gap: 12px;
-            z-index: 1001;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 16px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.15s;
         }
-        .setting-panel:hover {
-        transform: scale(1.05) !important;
-        text-shadow: 0 0 15px #4da6ff, 0 0 30px #4da6ff;
-    }
 
-        .settings-panel.active {
+        #settingBtn.expanded .setting-content-inner {
             display: flex;
+            opacity: 1;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        .setting-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
         }
 
-        .settings-panel h4 {
+        .setting-header h4 {
             font-size: 16px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 4px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .close-setting-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-setting-btn:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .setting-body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex: 1;
         }
 
         .setting-item {
@@ -188,6 +220,17 @@
             align-items: center;
             font-size: 14px;
             color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .setting-item select {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            outline: none;
+            font-size: 13px;
         }
 
         /* ẨN / HIỆN ICON MẶT TRỜI VÀ MẶT TRĂNG */
@@ -413,6 +456,7 @@
     </style>
 </head>
 <body>
+
 <!-- KHỐI NÚT ĐIỀU KHIỂN GÓC TRÊN PHẢI -->
 <div class="header-actions">
 
@@ -425,36 +469,50 @@
         </svg>
     </a>
 
-    <!-- 2. NÚT SETTING VÀ POPUP -->
-    <div class="setting-dropdown-wrapper">
-        <button type="button" class="action-btn" id="settingBtn" aria-label="Settings">
-            <span class="btn-label">Settings</span>
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
+    <!-- 2. NÚT SETTING TỰ MỞ RỘNG KHI CLICK -->
+    <button type="button" class="action-btn" id="settingBtn" aria-label="Settings">
+        <span class="btn-label">Settings</span>
+        <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
 
-        <!-- Bảng tùy chỉnh cài đặt hiển thị khi nhấn Settings -->
-        <div class="settings-panel" id="settingsPanel">
-            <h4>Cài đặt hệ thống</h4>
-            <div class="setting-item">
-                <span>Thông báo</span>
-                <input type="checkbox" checked>
+        <!-- NỘI DUNG HIỂN THỊ KHI NÚT PHÁT TRIỂN LỚN NÂNG CAO -->
+        <div class="setting-content-inner">
+            <div class="setting-header">
+                <h4>
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    Settings
+                </h4>
+                <button type="button" class="close-setting-btn" id="closeSettingBtn" aria-label="Close Settings">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
-            <div class="setting-item">
-                <span>Tự động phát</span>
-                <input type="checkbox">
-            </div>
-            <div class="setting-item">
-                <span>Ngôn ngữ</span>
-                <select style="padding: 4px 8px; border-radius: 6px;">
-                    <option>Tiếng Việt</option>
-                    <option>English</option>
-                </select>
+            <div class="setting-body">
+                <div class="setting-item">
+                    <span>Thông báo</span>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="setting-item">
+                    <span>Tự động phát</span>
+                    <input type="checkbox">
+                </div>
+                <div class="setting-item">
+                    <span>Ngôn ngữ</span>
+                    <select>
+                        <option>Tiếng Việt</option>
+                        <option>English</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
+    </button>
 
     <!-- 3. NÚT THEME TOGGLE -->
     <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
@@ -602,20 +660,30 @@
             });
         }
 
-        // Bật/tắt Bảng Cài Đặt (Settings Popup)
+        // XỬ LÝ HIỆU ỨNG NÚT SETTING PHÁT TRIỂN LỚN / THU NHỎ
         const settingBtn = document.getElementById('settingBtn');
-        const settingsPanel = document.getElementById('settingsPanel');
+        const closeSettingBtn = document.getElementById('closeSettingBtn');
 
-        if (settingBtn && settingsPanel) {
+        if (settingBtn) {
             settingBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                settingsPanel.classList.toggle('active');
+                // Nếu chưa mở rộng thì bật mở rộng
+                if (!settingBtn.classList.contains('expanded')) {
+                    settingBtn.classList.add('expanded');
+                }
             });
 
-            // Đóng bảng khi bấm ra ngoài
+            // Nút đóng Cài đặt
+            if (closeSettingBtn) {
+                closeSettingBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+                    settingBtn.classList.remove('expanded');
+                });
+            }
+
+            // Click ra ngoài thì thu nhỏ lại nút về hình viên thuốc
             document.addEventListener('click', (e) => {
-                if (!settingsPanel.contains(e.target) && !settingBtn.contains(e.target)) {
-                    settingsPanel.classList.remove('active');
+                if (!settingBtn.contains(e.target)) {
+                    settingBtn.classList.remove('expanded');
                 }
             });
         }
