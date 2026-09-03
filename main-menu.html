@@ -61,62 +61,67 @@
             gap: 12px;
         }
 
-        /* ==========================================
-           FIX DÃN VỪA ĐỦ THEO CHỮ & THU MƯỢT 2 CHIỀU
-           ========================================== */
-        .action-btn {
-            height: 48px;
-            width: 48px; 
-            max-width: 48px; /* Trạng thái nghỉ: Hình tròn 48px */
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: flex-start;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            
-            /* Chuyển động mượt 2 chiều khi max-width thay đổi */
-            transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                        box-shadow 0.3s ease, 
-                        border-color 0.3s ease,
-                        transform 0.15s ease;
-        }
+/* ==========================================
+   FIX LỖI KHÔNG DÃN + THU VỀ MƯỢT 2 CHIỀU
+   ========================================== */
+.action-btn {
+    height: 48px;
+    width: max-content; /* Cho phép nút tự phình theo chiều dài chữ */
+    min-width: 48px;
+    max-width: 48px;    /* Trạng thái nghỉ: Ép tròn 48px */
+    
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    
+    /* Chuyển động mượt 2 chiều khi max-width thay đổi */
+    transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s ease, 
+                border-color 0.3s ease,
+                transform 0.15s ease;
+}
 
-        .btn-icon-wrapper {
-            width: 46px;
-            height: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+.btn-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-        .action-btn svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--text-main);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+.action-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--text-main);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
 
-        .btn-label {
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            opacity: 0;
-            transform: translateX(-6px);
-            padding-right: 16px; /* Tạo khoảng đệm vừa đủ bên phải chữ */
-            
+.btn-label {
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0;
+    transform: translateX(-8px);
+    padding-right: 16px; /* Khoảng đệm đẹp mắt bên phải chữ */
+    
+    /* Hiệu ứng biến mất chữ khi thu về */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}         
             /* Hiệu ứng biến mất chữ khi thu về */
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
