@@ -57,7 +57,7 @@
             right: 20px;
             z-index: 1000;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
         }
 
@@ -75,9 +75,13 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px var(--shadow-color);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.3s ease, border-color 0.3s ease;
             text-decoration: none;
             position: relative;
+            overflow: hidden;
         }
 
         .btn-label {
@@ -93,18 +97,18 @@
             overflow: hidden;
         }
 
-        .action-btn:hover {
+        .action-btn:not(.expanded):hover {
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
             padding: 0 16px;
             width: auto;
         }
 
-        .action-btn:active {
+        .action-btn:not(.expanded):active {
             transform: scale(0.92);
         }
 
-        .action-btn:hover .btn-label {
+        .action-btn:not(.expanded):hover .btn-label {
             max-width: 100px;
             opacity: 1;
             margin-right: 8px;
@@ -122,37 +126,47 @@
         }
 
         /* ==========================================
-           FIX HOÀN TOÀN POPUP CÀI ĐẶT
+           EFFECT: NÚT SETTING TỰ PHÓNG TO NỞ RỘNG
            ========================================== */
-        .setting-wrapper {
-            position: relative;
+        #settingBtn {
+            transform-origin: top right;
         }
 
-        /* POPUP BAN ĐẦU DÙNG DISPLAY: NONE ĐỂ KHÔNG BỊ TRÀN RA NGOÀI */
-        .setting-popup {
-            display: none;
-            position: absolute;
-            top: 58px;
-            right: 0;
+        /* Khi được click mở rộng */
+        #settingBtn.expanded {
             width: 260px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            height: 200px;
             border-radius: 20px;
-            padding: 18px;
+            padding: 0;
+            cursor: default;
+            border-color: var(--hover-border);
             box-shadow: 0 12px 35px var(--shadow-color), 0 0 15px var(--hover-glow);
-            z-index: 1001;
+            align-items: stretch;
+            justify-content: stretch;
+        }
+
+        /* Hide icon & label ban đầu khi mở rộng */
+        #settingBtn.expanded > .icon-gear,
+        #settingBtn.expanded > .btn-label {
+            display: none !important;
+        }
+
+        /* MẶC ĐỊNH ẨN NỘI DUNG ĐỂ KHÔNG BỊ TRÀN RA NGOÀI */
+        .setting-content-inner {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 16px;
             flex-direction: column;
-            gap: 14px;
-            animation: fadeIn 0.2s ease-out forwards;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 0.25s ease 0.1s;
         }
 
-        .setting-popup.active {
+        /* BẬT DISPLAY VÀ FADE IN KHI MỞ RỘNG */
+        #settingBtn.expanded .setting-content-inner {
             display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            opacity: 1;
         }
 
         .setting-header {
@@ -160,7 +174,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .setting-header h4 {
@@ -191,7 +205,8 @@
         .setting-body {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            flex: 1;
         }
 
         .setting-item {
@@ -414,28 +429,26 @@
         </svg>
     </a>
 
-    <!-- 2. SETTINGS BUTTON VÀ POPUP RỜI -->
-    <div class="setting-wrapper">
-        <button type="button" class="action-btn" id="settingBtn" aria-label="Settings">
-            <span class="btn-label">Settings</span>
-            <svg class="icon-gear" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
+    <!-- 2. SETTINGS BUTTON (PHÓNG TO TỪ NÚT) -->
+    <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
+        <span class="btn-label">Settings</span>
+        <svg class="icon-gear" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
 
-        <!-- POPUP ĐƯỢC TÁCH RIÊNG HOÀN TOÀN -->
-        <div class="setting-popup" id="settingPopup">
+        <!-- NỘI DUNG NẰM NỘI BỘ TRONG NÚT -->
+        <div class="setting-content-inner">
             <div class="setting-header">
                 <h4>
-                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
                         <circle cx="12" cy="12" r="3"></circle>
                         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                     Settings
                 </h4>
                 <button type="button" class="close-setting-btn" id="closeSettingBtn" aria-label="Close Settings">
-                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
@@ -567,7 +580,7 @@
     </div>
 
     <script>
-        // XỬ LÝ THEME TOGGLE
+        // DARK MODE
         const themeToggleBtn = document.getElementById("themeToggle");
         const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
         const savedTheme = localStorage.getItem("theme");
@@ -590,35 +603,34 @@
             });
         }
 
-        // XỬ LÝ BẬT/TẮT POPUP SETTING
+        // XỬ LÝ NÚT SETTING TỰ PHÓNG TO NỞ RỘNG
         const settingBtn = document.getElementById('settingBtn');
-        const settingPopup = document.getElementById('settingPopup');
         const closeSettingBtn = document.getElementById('closeSettingBtn');
 
-        if (settingBtn && settingPopup) {
-            // Click nút bánh răng để mở/tắt popup
+        if (settingBtn) {
             settingBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                settingPopup.classList.toggle('active');
+                // Chỉ mở rộng khi nút chưa ở dạng expanded
+                if (!settingBtn.classList.contains('expanded')) {
+                    settingBtn.classList.add('expanded');
+                }
             });
 
-            // Nút đóng (X)
             if (closeSettingBtn) {
                 closeSettingBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    settingPopup.classList.remove('active');
+                    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+                    settingBtn.classList.remove('expanded');
                 });
             }
 
-            // Click ra bên ngoài popup sẽ tự đóng
+            // Click ra ngoài thì đóng lại
             document.addEventListener('click', (e) => {
-                if (!settingPopup.contains(e.target) && !settingBtn.contains(e.target)) {
-                    settingPopup.classList.remove('active');
+                if (!settingBtn.contains(e.target)) {
+                    settingBtn.classList.remove('expanded');
                 }
             });
         }
 
-        // CHUYỂN TAB SIDEBAR
+        // TAB SIDEBAR
         const navButtons = document.querySelectorAll('.sidebar .nav-btn');
         const tabContents = document.querySelectorAll('.content-area .tab-content');
 
