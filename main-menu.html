@@ -61,9 +61,12 @@
             gap: 10px;
         }
 
+        /* ==========================================
+           FIX HOẠT ẢNH HOVER MƯỢT 2 CHIỀU (IN & OUT)
+           ========================================== */
         .action-btn {
             height: 48px;
-            width: 48px;
+            width: 48px; /* Kích thước tròn ban đầu */
             padding: 0 13px;
             border-radius: 25px;
             border: 1px solid var(--border-color);
@@ -75,13 +78,18 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px var(--shadow-color);
-            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        box-shadow 0.3s ease, border-color 0.3s ease;
             text-decoration: none;
             position: relative;
             overflow: hidden;
+            
+            /* Đã thêm transition siêu mượt cho TẤT CẢ các thuộc tính khi RỜI CHUỘT */
+            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.3s ease, 
+                        border-color 0.3s ease,
+                        transform 0.15s ease;
         }
 
         .btn-label {
@@ -91,27 +99,31 @@
             font-size: 14px;
             font-weight: 700;
             color: var(--text-main);
-            transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+            margin-right: 0;
+            overflow: hidden;
+
+            /* Transition mượt cho chữ khi ẩn đi */
+            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 0.2s ease, 
                         margin 0.35s ease;
-            overflow: hidden;
         }
 
+        /* Khi Hover vào */
         .action-btn:not(.expanded):hover {
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
             padding: 0 16px;
-            width: auto;
-        }
-
-        .action-btn:not(.expanded):active {
-            transform: scale(0.92);
+            width: auto; /* Mở rộng theo chữ */
         }
 
         .action-btn:not(.expanded):hover .btn-label {
-            max-width: 100px;
+            max-width: 120px;
             opacity: 1;
             margin-right: 8px;
+        }
+
+        .action-btn:not(.expanded):active {
+            transform: scale(0.93);
         }
 
         .action-btn svg {
@@ -126,13 +138,12 @@
         }
 
         /* ==========================================
-           EFFECT: NÚT SETTING TỰ PHÓNG TO NỞ RỘNG
+           EFFECT: SETTINGS PHÓNG TO TỪ NÚT
            ========================================== */
         #settingBtn {
             transform-origin: top right;
         }
 
-        /* Khi được click mở rộng */
         #settingBtn.expanded {
             width: 260px;
             height: 200px;
@@ -145,13 +156,11 @@
             justify-content: stretch;
         }
 
-        /* Hide icon & label ban đầu khi mở rộng */
         #settingBtn.expanded > .icon-gear,
         #settingBtn.expanded > .btn-label {
             display: none !important;
         }
 
-        /* MẶC ĐỊNH ẨN NỘI DUNG ĐỂ KHÔNG BỊ TRÀN RA NGOÀI */
         .setting-content-inner {
             display: none;
             width: 100%;
@@ -163,7 +172,6 @@
             transition: opacity 0.25s ease 0.1s;
         }
 
-        /* BẬT DISPLAY VÀ FADE IN KHI MỞ RỘNG */
         #settingBtn.expanded .setting-content-inner {
             display: flex;
             opacity: 1;
@@ -228,7 +236,7 @@
             font-size: 13px;
         }
 
-        /* THEME TOGGLE */
+        /* THEME TOGGLE ICON */
         #themeToggle .icon-sun { display: block; }
         #themeToggle .icon-moon { display: none; }
         body.dark-mode #themeToggle .icon-sun { display: none; }
@@ -280,13 +288,7 @@
 
         .search-input::placeholder { color: var(--text-sub); }
 
-        a.item-card {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-        }
-
-        /* MAIN CONTAINER */
+        /* MAIN CONTAINER & CARDS */
         .main-container {
             width: 100%;
             max-width: 900px;
@@ -369,6 +371,12 @@
 
         .tab-content.active { display: flex; }
 
+        a.item-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+        }
+
         .item-card {
             background-color: var(--card-bg);
             border-radius: 20px;
@@ -429,7 +437,7 @@
         </svg>
     </a>
 
-    <!-- 2. SETTINGS BUTTON (PHÓNG TO TỪ NÚT) -->
+    <!-- 2. SETTINGS BUTTON (PHÓNG TO TỰ NÚT) -->
     <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
         <span class="btn-label">Settings</span>
         <svg class="icon-gear" viewBox="0 0 24 24">
@@ -437,7 +445,6 @@
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
         </svg>
 
-        <!-- NỘI DUNG NẰM NỘI BỘ TRONG NÚT -->
         <div class="setting-content-inner">
             <div class="setting-header">
                 <h4>
@@ -603,13 +610,12 @@
             });
         }
 
-        // XỬ LÝ NÚT SETTING TỰ PHÓNG TO NỞ RỘNG
+        // XỬ LÝ NÚT SETTING PHÓNG TO
         const settingBtn = document.getElementById('settingBtn');
         const closeSettingBtn = document.getElementById('closeSettingBtn');
 
         if (settingBtn) {
             settingBtn.addEventListener('click', (e) => {
-                // Chỉ mở rộng khi nút chưa ở dạng expanded
                 if (!settingBtn.classList.contains('expanded')) {
                     settingBtn.classList.add('expanded');
                 }
@@ -617,12 +623,11 @@
 
             if (closeSettingBtn) {
                 closeSettingBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+                    e.stopPropagation();
                     settingBtn.classList.remove('expanded');
                 });
             }
 
-            // Click ra ngoài thì đóng lại
             document.addEventListener('click', (e) => {
                 if (!settingBtn.contains(e.target)) {
                     settingBtn.classList.remove('expanded');
