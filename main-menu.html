@@ -121,7 +121,18 @@
     
     /* Hiệu ứng biến mất chữ khi thu về */
     transition: opacity 0.2s ease, transform 0.2s ease;
-}         
+}    
+        /* ==========================================
+   BẮT BUỘC PHẢI CÓ ĐOẠN NÀY ĐỂ KÍCH HOẠT HOVER
+   ========================================== */
+.action-btn:hover {
+    max-width: 200px !important; /* Dãn chiều rộng tối đa ra 200px */
+}
+
+.action-btn:hover .btn-label {
+    opacity: 1 !important;        /* Hiện chữ */
+    transform: translateX(0) !important; /* Trượt chữ về đúng vị trí */
+}
             /* Hiệu ứng biến mất chữ khi thu về */
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
