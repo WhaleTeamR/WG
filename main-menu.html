@@ -62,11 +62,12 @@
         }
 
         /* ==========================================
-           FIX HOÀN HẢO HOẠT ẢNH 2 CHIỀU (HOVER IN / OUT)
+           FIX DÃN VỪA ĐỦ THEO CHỮ & THU MƯỢT 2 CHIỀU
            ========================================== */
         .action-btn {
             height: 48px;
-            width: 48px; /* Ban đầu chỉ là hình tròn 48px */
+            width: 48px; 
+            max-width: 48px; /* Trạng thái nghỉ: Hình tròn 48px */
             border-radius: 24px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -75,21 +76,21 @@
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: flex-start; /* Icon luôn neo bên trái */
+            justify-content: flex-start;
             box-shadow: 0 4px 15px var(--shadow-color);
             text-decoration: none;
             position: relative;
             overflow: hidden;
             
-            /* Quan trọng: Animation 2 chiều chuẩn xác cho thuộc tính width */
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            /* Chuyển động mượt 2 chiều khi max-width thay đổi */
+            transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         box-shadow 0.3s ease, 
                         border-color 0.3s ease,
                         transform 0.15s ease;
         }
 
         .btn-icon-wrapper {
-            width: 46px; /* Giữ cố định vùng chứa icon */
+            width: 46px;
             height: 46px;
             display: flex;
             align-items: center;
@@ -113,16 +114,16 @@
             font-weight: 700;
             color: var(--text-main);
             opacity: 0;
-            transform: translateX(-8px);
+            transform: translateX(-6px);
+            padding-right: 16px; /* Tạo khoảng đệm vừa đủ bên phải chữ */
             
-            /* Hiệu ứng mờ chữ khi thu về */
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            padding-right: 16px; /* Khoảng cách đệm bên phải chữ */
+            /* Hiệu ứng biến mất chữ khi thu về */
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        /* HOVER VÀO (LƯỢT ĐI): Mở rộng chiều rộng và hiện chữ */
+        /* HOVER VÀO (LƯỢT ĐI): Dãn vừa đủ độ dài chữ (tối đa 200px) */
         .action-btn:not(.expanded):hover {
-            width: 135px; /* Chiều rộng đủ cho icon + chữ */
+            max-width: 200px;
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
         }
@@ -130,7 +131,7 @@
         .action-btn:not(.expanded):hover .btn-label {
             opacity: 1;
             transform: translateX(0);
-            transition-delay: 0.08s; /* Chờ nút dãn ra một chút mới hiện chữ */
+            transition-delay: 0.08s;
         }
 
         .action-btn:not(.expanded):active {
@@ -146,6 +147,7 @@
 
         #settingBtn.expanded {
             width: 280px !important;
+            max-width: 280px !important;
             height: 210px !important;
             border-radius: 20px;
             cursor: default;
