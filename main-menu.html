@@ -58,77 +58,43 @@
             z-index: 1000;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
         }
 
         /* ==========================================
-           FIX HOẠT ẢNH CO/DÃN MƯỢT 2 CHIỀU (HOVER IN/OUT)
+           FIX HOÀN HẢO HOẠT ẢNH 2 CHIỀU (HOVER IN / OUT)
            ========================================== */
         .action-btn {
             height: 48px;
-            width: 48px; 
-            max-width: 48px; /* Giữ chuẩn hình tròn ban đầu */
-            
-            padding: 0;
-            border-radius: 25px;
+            width: 48px; /* Ban đầu chỉ là hình tròn 48px */
+            border-radius: 24px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Icon luôn neo bên trái */
             box-shadow: 0 4px 15px var(--shadow-color);
             text-decoration: none;
             position: relative;
             overflow: hidden;
             
-            /* Hiệu ứng chuyển động mượt 2 chiều khi dãn ra và co lại */
-            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+            /* Quan trọng: Animation 2 chiều chuẩn xác cho thuộc tính width */
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         box-shadow 0.3s ease, 
                         border-color 0.3s ease,
                         transform 0.15s ease;
         }
 
-        .btn-label {
-            max-width: 0;
-            opacity: 0;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-right: 0;
-            margin-left: 0;
-            overflow: hidden;
-
-            transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 0.2s ease, 
-                        margin 0.3s ease;
-        }
-
-        /* Hover vào: dãn dài thành hình viên thuốc */
-        .action-btn:not(.expanded):hover {
-            border-color: var(--hover-border);
-            box-shadow: 0 4px 15px var(--hover-glow);
-            padding: 0 16px;
-            width: auto;
-            max-width: 250px;
-            justify-content: flex-start;
-        }
-
-        .action-btn:not(.expanded):hover .btn-label {
-            max-width: 150px;
-            opacity: 1;
-            margin-left: 8px;
-        }
-
-        .action-btn:not(.expanded):active {
-            transform: scale(0.93);
+        .btn-icon-wrapper {
+            width: 46px; /* Giữ cố định vùng chứa icon */
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .action-btn svg {
@@ -139,22 +105,49 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            flex-shrink: 0;
+        }
+
+        .btn-label {
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            opacity: 0;
+            transform: translateX(-8px);
+            
+            /* Hiệu ứng mờ chữ khi thu về */
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            padding-right: 16px; /* Khoảng cách đệm bên phải chữ */
+        }
+
+        /* HOVER VÀO (LƯỢT ĐI): Mở rộng chiều rộng và hiện chữ */
+        .action-btn:not(.expanded):hover {
+            width: 135px; /* Chiều rộng đủ cho icon + chữ */
+            border-color: var(--hover-border);
+            box-shadow: 0 4px 15px var(--hover-glow);
+        }
+
+        .action-btn:not(.expanded):hover .btn-label {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.08s; /* Chờ nút dãn ra một chút mới hiện chữ */
+        }
+
+        .action-btn:not(.expanded):active {
+            transform: scale(0.93);
         }
 
         /* ==========================================
-           EFFECT: SETTINGS PHÓNG TO TỪ NÚT
+           EFFECT: SETTINGS PHÓNG TO THÀNH BẢNG
            ========================================== */
         #settingBtn {
             transform-origin: top right;
         }
 
         #settingBtn.expanded {
-            width: 280px;
-            max-width: 280px;
-            height: 210px;
+            width: 280px !important;
+            height: 210px !important;
             border-radius: 20px;
-            padding: 0;
             cursor: default;
             border-color: var(--hover-border);
             box-shadow: 0 12px 35px var(--shadow-color), 0 0 15px var(--hover-glow);
@@ -162,7 +155,7 @@
             justify-content: stretch;
         }
 
-        #settingBtn.expanded > .icon-gear,
+        #settingBtn.expanded > .btn-icon-wrapper,
         #settingBtn.expanded > .btn-label {
             display: none !important;
         }
@@ -436,20 +429,24 @@
 
     <!-- 1. LOGIN -->
     <a href="login.html" class="action-btn" id="loginBtn" aria-label="Login">
+        <div class="btn-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </div>
         <span class="btn-label">Login</span>
-        <svg viewBox="0 0 24 24">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
     </a>
 
     <!-- 2. SETTINGS BUTTON -->
     <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
+        <div class="btn-icon-wrapper">
+            <svg class="icon-gear" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </div>
         <span class="btn-label">Settings</span>
-        <svg class="icon-gear" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
 
         <div class="setting-content-inner">
             <div class="setting-header">
@@ -489,21 +486,23 @@
 
     <!-- 3. THEME TOGGLE -->
     <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
+        <div class="btn-icon-wrapper">
+            <svg class="icon-sun" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </div>
         <span class="btn-label mode-text">Light</span>
-        <svg class="icon-sun" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
     </button>
 
 </div>
