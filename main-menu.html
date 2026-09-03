@@ -61,108 +61,86 @@
             gap: 12px;
         }
 
-/* ==========================================
-   FIX CHUẨN HOÀN HẢO HOẠT ẢNH 2 CHIỀU & HOVER XANH
-   ========================================== */
-.action-btn {
-    height: 48px;
-    width: max-content;
-    min-width: 48px;
-    max-width: 48px; /* Ban đầu ép cứng hình tròn */
-    
-    border-radius: 24px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    
-    /* Animation mượt cho cả lượt đi và lượt về */
-    transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.3s ease, 
-                border-color 0.3s ease,
-                transform 0.2s ease;
-}
+        /* ==========================================
+           FIX CHUẨN HOÀN HẢO HOẠT ẢNH 2 CHIỀU & HOVER
+           ========================================== */
+        .action-btn {
+            height: 48px;
+            width: max-content;
+            min-width: 48px;
+            max-width: 48px; /* Ép tròn ban đầu */
+            
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            
+            /* Khai báo chuyển động mượt cho cả lượt đi lẫn lượt về */
+            transition: max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        box-shadow 0.3s ease, 
+                        border-color 0.3s ease,
+                        transform 0.2s ease;
+        }
 
-.btn-icon-wrapper {
-    width: 46px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        .btn-icon-wrapper {
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
-.action-btn svg {
-    width: 22px;
-    height: 22px;
-    stroke: var(--text-main);
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.3s ease;
-}
+        .action-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--text-main);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s ease;
+        }
 
-.btn-label {
-    white-space: nowrap;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-main);
-    opacity: 0;
-    transform: translateX(-10px);
-    padding-right: 16px;
-    
-    /* Thu về chữ mờ nhanh để không bị tràn viền */
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-/* ==========================================
-   HOVER (LƯỢT ĐI) - KHÔI PHỤC VIỀN XANH & PHÓNG TO
-   ========================================== */
-.action-btn:not(.expanded):hover {
-    max-width: 220px !important; /* Dãn ra vừa đụng chữ */
-    border-color: var(--hover-border) !important; /* Viền xanh */
-    box-shadow: 0 4px 15px var(--hover-glow) !important; /* Phát sáng xanh */
-    transform: translateY(-2px) scale(1.02); /* Phóng to nhẹ lên 1 chút */
-}
-
-/* Hoạt ảnh hiện chữ ở LƯỢT ĐI (Có delay nhẹ đợi nút dãn ra) */
-.action-btn:not(.expanded):hover .btn-label {
-    opacity: 1 !important;
-    transform: translateX(0) !important;
-    transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
-}
-
-.action-btn:not(.expanded):active {
-    transform: scale(0.95) !important;
-}
-            /* Hiệu ứng biến mất chữ khi thu về */
+        .btn-label {
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            opacity: 0;
+            transform: translateX(-8px);
+            padding-right: 16px;
+            
+            /* Thu về chữ mờ nhanh */
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        /* HOVER VÀO (LƯỢT ĐI): Dãn vừa đủ độ dài chữ (tối đa 200px) */
+        /* HOVER (LƯỢT ĐI) */
         .action-btn:not(.expanded):hover {
-            max-width: 200px;
+            max-width: 220px; /* Trôi rộng ra mượt mà */
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
+            transform: translateY(-2px) scale(1.02);
         }
 
+        /* Chữ hiện ra ở lượt đi (chờ nút giãn ra một xíu mới trượt chữ ra) */
         .action-btn:not(.expanded):hover .btn-label {
             opacity: 1;
             transform: translateX(0);
-            transition-delay: 0.08s;
+            transition: opacity 0.25s ease 0.12s, transform 0.25s ease 0.12s;
         }
 
         .action-btn:not(.expanded):active {
-            transform: scale(0.93);
+            transform: scale(0.95);
         }
 
         /* ==========================================
