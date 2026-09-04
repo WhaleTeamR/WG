@@ -8,7 +8,6 @@
     <title>Tách Ảnh AI - WhaleTeam_R</title>
     <link rel="icon" type="image/png" href="Logo.png">
     <style>
-        /* RESET CSS CƠ BẢN */
         * {
             margin: 0;
             padding: 0;
@@ -49,11 +48,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* HEADER BUTTONS - ĐỒNG BỘ MAIN MENU */
+        /* LOGO CÔNG TY / TRANG WEB (TOP-LEFT) */
+        .brand-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-logo span {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* HEADER ACTIONS (TOP-RIGHT) */
         .header-actions {
             position: fixed;
             top: 20px;
@@ -136,7 +159,7 @@
             transform: scale(0.95);
         }
 
-        /* SETTINGS EXPANDABLE BOX (CHUẨN MAIN MENU) */
+        /* SETTINGS EXPANDABLE BOX */
         #settingBtn {
             transform-origin: top right;
         }
@@ -239,11 +262,11 @@
         body.dark-mode #themeToggle .icon-sun { display: none; }
         body.dark-mode #themeToggle .icon-moon { display: block; }
 
-        /* KHU VỰC CHÍNH - TOOL TÁCH ẢNH */
+        /* KHU VỰC CHÍNH */
         .main-container {
             width: 100%;
             max-width: 960px;
-            margin-top: 50px;
+            margin-top: 80px;
             display: flex;
             flex-direction: column;
             gap: 24px;
@@ -254,7 +277,7 @@
         }
 
         .tool-header h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -268,7 +291,7 @@
             background: var(--card-bg);
             border: 2px dashed var(--border-color);
             border-radius: 24px;
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -318,7 +341,6 @@
             display: none;
         }
 
-        /* BẢNG ĐIỀU KHIỂN & SO SÁNH ẢNH */
         .workspace {
             display: none;
             background: var(--card-bg);
@@ -370,12 +392,6 @@
             border-radius: 8px;
         }
 
-        .transparent-bg {
-            background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #fff 25%, #fff 75%, #ccc 75%, #ccc);
-            background-size: 16px 16px;
-            background-position: 0 0, 8px 8px;
-        }
-
         .control-bar {
             display: flex;
             justify-content: space-between;
@@ -424,21 +440,27 @@
 </head>
 <body>
 
-<!-- FIXED HEADER ACTIONS (HOME, SETTING, THEME TOGGLE) -->
+<!-- LOGO TRANG WEB (KHU VỰC GÓC TRÁI) -->
+<a href="index.html" class="brand-logo">
+    <img src="Logo.png" alt="Logo">
+    <span>WhaleTeam_R</span>
+</a>
+
+<!-- HEADER ACTIONS (GÓC PHẢI) -->
 <div class="header-actions">
 
-    <!-- 1. QUAY LẠI MAIN MENU -->
-    <a href="index.html" class="action-btn" id="homeBtn" aria-label="Home">
+    <!-- 1. NÚT ĐĂNG NHẬP / TÀI KHOẢN (LOGIN) -->
+    <a href="login.html" class="action-btn" id="loginBtn" aria-label="Login">
         <div class="btn-icon-wrapper">
             <svg viewBox="0 0 24 24">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
             </svg>
         </div>
-        <span class="btn-label">Trang chủ</span>
+        <span class="btn-label">Đăng nhập</span>
     </a>
 
-    <!-- 2. NÚT SETTING DẠNG BUNG TO TẠI CHỖ (Y HỆT MAIN MENU) -->
+    <!-- 2. NÚT SETTINGS -->
     <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
         <div class="btn-icon-wrapper">
             <svg class="icon-gear" viewBox="0 0 24 24">
@@ -470,8 +492,8 @@
                     <input type="checkbox" checked>
                 </div>
                 <div class="setting-item">
-                    <span>Tự động phát</span>
-                    <input type="checkbox">
+                    <span>Tự động xử lý</span>
+                    <input type="checkbox" checked>
                 </div>
                 <div class="setting-item">
                     <span>Ngôn ngữ</span>
@@ -484,7 +506,7 @@
         </div>
     </div>
 
-    <!-- 3. BẬT TẮT THEME (ĐÊM / SÁNG) -->
+    <!-- 3. NÚT CHUYỂN BẬT TẮT THEME SÁNG / TỐI -->
     <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
         <div class="btn-icon-wrapper">
             <svg class="icon-sun" viewBox="0 0 24 24">
@@ -510,11 +532,11 @@
 <!-- KHU VỰC CÔNG CỤ TÁCH ẢNH -->
 <div class="main-container">
     <div class="tool-header">
-        <h1>Tách Nền Ảnh AI</h1>
-        <p>Xóa phông nền tự động bằng công nghệ trí tuệ nhân tạo cực kỳ nhanh chóng.</p>
+        <h1>Tách Ảnh AI</h1>
+        <p>Phân tách các chi tiết và đối tượng trong hình ảnh bằng trí tuệ nhân tạo.</p>
     </div>
 
-    <!-- KHU VỰC TẢI ẢNH UP -->
+    <!-- KHU VỰC UPLOAD -->
     <div class="upload-card" id="dropZone">
         <div class="upload-icon">
             <svg viewBox="0 0 24 24">
@@ -529,15 +551,15 @@
         <input type="file" id="fileInput" accept="image/*">
     </div>
 
-    <!-- KHU VỰC HIỂN THỊ KẾT QUẢ VÀ TẢI VỀ -->
+    <!-- KHU VỰC XỬ LÝ & KẾT QUẢ TÁCH ẢNH -->
     <div class="workspace" id="workspace">
         <div class="image-preview-grid">
             <div class="preview-box">
                 <h3>Ảnh gốc</h3>
                 <img id="originalPreview" src="" alt="Original Image">
             </div>
-            <div class="preview-box transparent-bg">
-                <h3>Ảnh đã tách nền (PNG)</h3>
+            <div class="preview-box">
+                <h3>Kết quả tách ảnh</h3>
                 <img id="processedPreview" src="" alt="Processed Image">
             </div>
         </div>
@@ -546,8 +568,9 @@
             <button class="btn-action btn-secondary" id="reuploadBtn">Tải ảnh khác</button>
             <div class="download-opts">
                 <select id="downloadFormat" style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-main);">
-                    <option value="png">Định dạng PNG (HD)</option>
-                    <option value="webp">Định dạng WEBP</option>
+                    <option value="png">PNG HD</option>
+                    <option value="jpg">JPG HD</option>
+                    <option value="webp">WEBP</option>
                 </select>
                 <button class="btn-action btn-primary" id="downloadBtn">Tải ảnh về</button>
             </div>
@@ -556,7 +579,7 @@
 </div>
 
 <script>
-    // 1. ĐỒNG BỘ DARK MODE VỚI MAIN MENU QUA LOCALSTORAGE
+    // 1. CHỦ ĐỀ DARK/LIGHT MODE
     const themeToggleBtn = document.getElementById("themeToggle");
     const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
     const savedTheme = localStorage.getItem("theme");
@@ -579,7 +602,7 @@
         });
     }
 
-    // 2. SỰ KIỆN NÚT SETTING PHÓNG TO Y HỆT MAIN MENU
+    // 2. NÚT SETTINGS EXPANDABLE
     const settingBtn = document.getElementById('settingBtn');
     const closeSettingBtn = document.getElementById('closeSettingBtn');
 
@@ -604,7 +627,7 @@
         });
     }
 
-    // 3. LOGIC KÉO THẢ VÀ XỬ LÝ UPLOAD ẢNH
+    // 3. UPLOAD & XỬ LÝ TÁCH ẢNH
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const workspace = document.getElementById('workspace');
@@ -641,8 +664,7 @@
         const reader = new FileReader();
         reader.onload = function(e) {
             originalPreview.src = e.target.result;
-            // Mô phỏng kết quả đã tách nền (hiển thị giao diện)
-            processedPreview.src = e.target.result; 
+            processedPreview.src = e.target.result;
             dropZone.style.display = 'none';
             workspace.style.display = 'flex';
         }
