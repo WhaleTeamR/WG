@@ -86,6 +86,9 @@
             
             /* Khai báo chuyển động mượt cho cả lượt đi lẫn lượt về */
             transition: max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        border-radius 0.3s ease,
                         box-shadow 0.3s ease, 
                         border-color 0.3s ease,
                         transform 0.2s ease;
@@ -144,16 +147,16 @@
         }
 
         /* ==========================================
-           EFFECT: SETTINGS PHÓNG TO THÀNH BẢNG
+           EFFECT: SETTINGS PHÓNG TO THÀNH BẢNG MAIN MENU
            ========================================== */
         #settingBtn {
             transform-origin: top right;
         }
 
         #settingBtn.expanded {
-            width: 280px !important;
-            max-width: 280px !important;
-            height: 210px !important;
+            width: 550px !important;
+            max-width: 550px !important;
+            height: 360px !important;
             border-radius: 20px;
             cursor: default;
             border-color: var(--hover-border);
@@ -171,9 +174,9 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 18px;
+            padding: 16px 20px;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
             opacity: 0;
             transition: opacity 0.25s ease 0.1s;
         }
@@ -189,10 +192,11 @@
             justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
+            flex-shrink: 0;
         }
 
         .setting-header h4 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-main);
             display: flex;
@@ -216,11 +220,49 @@
             background-color: var(--hover-bg);
         }
 
-        .setting-body {
+        /* BỐ CỤC MAIN MENU TRONG SETTING */
+        .setting-main-container {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .setting-sidebar {
+            width: 150px;
+            background-color: var(--bg-color);
+            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .setting-sidebar .nav-btn {
+            padding: 8px 12px;
+            font-size: 13px;
+            border-radius: 8px;
+        }
+
+        .setting-content-area {
             flex: 1;
+            background-color: var(--bg-color);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .setting-tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .setting-tab-content.active {
+            display: flex;
         }
 
         .setting-item {
@@ -230,13 +272,14 @@
             font-size: 14px;
             color: var(--text-main);
             font-weight: 500;
+            padding: 6px 0;
         }
 
         .setting-item select {
             padding: 4px 8px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            background: var(--bg-color);
+            background: var(--card-bg);
             color: var(--text-main);
             outline: none;
             font-size: 13px;
@@ -427,6 +470,10 @@
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .sidebar { width: 100%; }
+            #settingBtn.expanded {
+                width: calc(100vw - 40px) !important;
+                max-width: 100% !important;
+            }
         }
     </style>
 </head>
@@ -469,21 +516,35 @@
                     </svg>
                 </button>
             </div>
-            <div class="setting-body">
-                <div class="setting-item">
-                    <span>Thông báo</span>
-                    <input type="checkbox" checked>
+
+            <!-- CẤU TRÚC MAIN MENU BÊN TRONG SETTING -->
+            <div class="setting-main-container">
+                <div class="setting-sidebar">
+                    <button class="nav-btn active" data-setting-tab="st-chung">Chung</button>
+                    <button class="nav-btn" data-setting-tab="st-hethong">Hệ thống</button>
                 </div>
-                <div class="setting-item">
-                    <span>Tự động phát</span>
-                    <input type="checkbox">
-                </div>
-                <div class="setting-item">
-                    <span>Ngôn ngữ</span>
-                    <select>
-                        <option>Tiếng Việt</option>
-                        <option>English</option>
-                    </select>
+
+                <div class="setting-content-area">
+                    <div id="st-chung" class="setting-tab-content active">
+                        <div class="setting-item">
+                            <span>Thông báo</span>
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="setting-item">
+                            <span>Tự động phát</span>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+
+                    <div id="st-hethong" class="setting-tab-content">
+                        <div class="setting-item">
+                            <span>Ngôn ngữ</span>
+                            <select>
+                                <option>Tiếng Việt</option>
+                                <option>English</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -649,9 +710,28 @@
             });
         }
 
-        // TAB SIDEBAR
-        const navButtons = document.querySelectorAll('.sidebar .nav-btn');
-        const tabContents = document.querySelectorAll('.content-area .tab-content');
+        // TAB INNER SETTINGS
+        const settingNavBtns = document.querySelectorAll('.setting-sidebar .nav-btn');
+        const settingTabContents = document.querySelectorAll('.setting-content-area .setting-tab-content');
+
+        settingNavBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                settingNavBtns.forEach(b => b.classList.remove('active'));
+                settingTabContents.forEach(c => c.classList.remove('active'));
+
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-setting-tab');
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+
+        // TAB SIDEBAR MAIN MENU
+        const navButtons = document.querySelectorAll('.main-container .sidebar .nav-btn');
+        const tabContents = document.querySelectorAll('.main-container .content-area .tab-content');
 
         navButtons.forEach(button => {
             button.addEventListener('click', function() {
