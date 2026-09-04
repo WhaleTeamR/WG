@@ -137,6 +137,86 @@
         #themeToggle .icon-moon { display: none; }
         body.dark-mode #themeToggle .icon-sun { display: none; }
         body.dark-mode #themeToggle .icon-moon { display: block; }
+        /* POPUP SETTINGS CONTAINER */
+#settingBtn {
+    position: relative; /* Để popup căn theo nút này */
+}
+
+.setting-content-inner {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 280px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    display: none; /* Mặc định ẩn */
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1001;
+    cursor: default;
+}
+
+/* Hiển thị khi active */
+#settingBtn.active .setting-content-inner {
+    display: flex;
+}
+
+.setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.setting-header h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text-main);
+}
+
+.close-setting-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    stroke: var(--text-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.close-setting-btn:hover {
+    background: var(--hover-bg);
+}
+
+.setting-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.setting-item select {
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--hover-bg);
+    color: var(--text-main);
+}
 
         /* NỘI DUNG CHÍNH CÔNG CỤ TÁCH ẢNH */
         .tool-container {
@@ -470,6 +550,34 @@
                 localStorage.setItem("theme", isDark ? "dark" : "light");
             });
         }
+        // XỬ LÝ ẨN/HIỆN POPUP SETTINGS
+const settingBtn = document.getElementById('settingBtn');
+const closeSettingBtn = document.getElementById('closeSettingBtn');
+const settingContent = document.querySelector('.setting-content-inner');
+
+if (settingBtn) {
+    // Click vào nút Settings để bật/tắt
+    settingBtn.addEventListener('click', (e) => {
+        // Ngăn sự kiện click từ bên trong popup làm đóng popup
+        if (settingContent.contains(e.target)) return;
+        settingBtn.classList.toggle('active');
+    });
+
+    // Nút đóng (X) trong popup
+    if (closeSettingBtn) {
+        closeSettingBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingBtn.classList.remove('active');
+        });
+    }
+
+    // Click ra ngoài thì tự động đóng popup
+    document.addEventListener('click', (e) => {
+        if (!settingBtn.contains(e.target)) {
+            settingBtn.classList.remove('active');
+        }
+    });
+}
 
         // 3. XỬ LÝ UPLOAD VÀ TÁCH NỀN BẰNG AI
         const dropZone = document.getElementById('dropZone');
