@@ -662,90 +662,95 @@
     </div>
 
     <script>
-        // DARK MODE
-        const themeToggleBtn = document.getElementById("themeToggle");
-        const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
-        const savedTheme = localStorage.getItem("theme");
+// DARK MODE
+const themeToggleBtn = document.getElementById("themeToggle");
+const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
+const savedTheme = localStorage.getItem("theme");
 
-        if (savedTheme === "dark") {
-            document.body.classList.add("dark-mode");
-            if (modeText) modeText.textContent = "Dark";
-        } else {
-            if (modeText) modeText.textContent = "Light";
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (modeText) modeText.textContent = "Dark";
+} else {
+    if (modeText) modeText.textContent = "Light";
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        if (modeText) {
+            modeText.textContent = isDark ? "Dark" : "Light";
         }
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+}
 
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener("click", () => {
-                document.body.classList.toggle("dark-mode");
-                const isDark = document.body.classList.contains("dark-mode");
-                if (modeText) {
-                    modeText.textContent = isDark ? "Dark" : "Light";
-                }
-                localStorage.setItem("theme", isDark ? "dark" : "light");
-            });
+// XỬ LÝ NÚT SETTING PHÓNG TO (ĐÃ SỬA LỖI CLICK)
+const settingBtn = document.getElementById('settingBtn');
+const closeSettingBtn = document.getElementById('closeSettingBtn');
+
+if (settingBtn) {
+    settingBtn.addEventListener('click', (e) => {
+        // Nếu nhấn vào nút đóng thì không chạy hàm mở
+        if (e.target.closest('#closeSettingBtn')) return;
+
+        // Mở bảng Settings nếu chưa mở
+        if (!settingBtn.classList.contains('expanded')) {
+            settingBtn.classList.add('expanded');
         }
+    });
 
-        // XỬ LÝ NÚT SETTING PHÓNG TO
-        const settingBtn = document.getElementById('settingBtn');
-        const closeSettingBtn = document.getElementById('closeSettingBtn');
-
-        if (settingBtn) {
-            settingBtn.addEventListener('click', () => {
-                if (!settingBtn.classList.contains('expanded')) {
-                    settingBtn.classList.add('expanded');
-                }
-            });
-
-            if (closeSettingBtn) {
-                closeSettingBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    settingBtn.classList.remove('expanded');
-                });
-            }
-
-            document.addEventListener('click', (e) => {
-                if (settingBtn.classList.contains('expanded') && !settingBtn.contains(e.target)) {
-                    settingBtn.classList.remove('expanded');
-                }
-            });
-        }
-
-        // TAB INNER SETTINGS
-        const settingNavBtns = document.querySelectorAll('.setting-sidebar .nav-btn');
-        const settingTabContents = document.querySelectorAll('.setting-content-area .setting-tab-content');
-
-        settingNavBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                settingNavBtns.forEach(b => b.classList.remove('active'));
-                settingTabContents.forEach(c => c.classList.remove('active'));
-
-                this.classList.add('active');
-                const targetId = this.getAttribute('data-setting-tab');
-                const targetContent = document.getElementById(targetId);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-            });
+    if (closeSettingBtn) {
+        closeSettingBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+            settingBtn.classList.remove('expanded');
         });
+    }
 
-        // TAB SIDEBAR MAIN MENU
-        const navButtons = document.querySelectorAll('.main-container .sidebar .nav-btn');
-        const tabContents = document.querySelectorAll('.main-container .content-area .tab-content');
+    // Bấm ra ngoài vùng Settings để thu nhỏ lại
+    document.addEventListener('click', (e) => {
+        if (settingBtn.classList.contains('expanded') && !settingBtn.contains(e.target)) {
+            settingBtn.classList.remove('expanded');
+        }
+    });
+}
 
-        navButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
+// TAB INNER SETTINGS
+const settingNavBtns = document.querySelectorAll('.setting-sidebar .nav-btn');
+const settingTabContents = document.querySelectorAll('.setting-content-area .setting-tab-content');
 
-                this.classList.add('active');
-                const targetTabId = this.getAttribute('data-tab');
-                const targetContent = document.getElementById(targetTabId);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-            });
-        });
+settingNavBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingNavBtns.forEach(b => b.classList.remove('active'));
+        settingTabContents.forEach(c => c.classList.remove('active'));
+
+        this.classList.add('active');
+        const targetId = this.getAttribute('data-setting-tab');
+        const targetContent = document.getElementById(targetId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    });
+});
+
+// TAB SIDEBAR MAIN MENU
+const navButtons = document.querySelectorAll('.main-container .sidebar .nav-btn');
+const tabContents = document.querySelectorAll('.main-container .content-area .tab-content');
+
+navButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        this.classList.add('active');
+        const targetTabId = this.getAttribute('data-tab');
+        const targetContent = document.getElementById(targetTabId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    });
+});
     </script>
 
 </body>
