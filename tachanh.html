@@ -8,6 +8,7 @@
     <title>Main Menu - WhaleTeam_R</title>
     <link rel="icon" type="image/png" href="Logo.png">
     <style>
+        /* RESET CSS CƠ BẢN */
         * {
             margin: 0;
             padding: 0;
@@ -60,11 +61,15 @@
             gap: 12px;
         }
 
+        /* ==========================================
+           FIX CHUẨN HOÀN HẢO HOẠT ẢNH 2 CHIỀU & HOVER
+           ========================================== */
         .action-btn {
             height: 48px;
             width: max-content;
             min-width: 48px;
-            max-width: 48px;
+            max-width: 48px; /* Ép tròn ban đầu */
+            
             border-radius: 24px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -78,6 +83,8 @@
             text-decoration: none;
             position: relative;
             overflow: hidden;
+            
+            /* Khai báo chuyển động mượt cho cả lượt đi lẫn lượt về */
             transition: max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
                         height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
                         width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
@@ -115,53 +122,68 @@
             opacity: 0;
             transform: translateX(-8px);
             padding-right: 16px;
+            
+            /* Thu về chữ mờ nhanh */
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        .action-btn:hover {
-            max-width: 220px;
+        /* HOVER (LƯỢT ĐI) */
+        .action-btn:not(.expanded):hover {
+            max-width: 220px; /* Trôi rộng ra mượt mà */
             border-color: var(--hover-border);
             box-shadow: 0 4px 15px var(--hover-glow);
             transform: translateY(-2px) scale(1.02);
         }
 
-        .action-btn:hover .btn-label {
+        /* Chữ hiện ra ở lượt đi (chờ nút giãn ra một xíu mới trượt chữ ra) */
+        .action-btn:not(.expanded):hover .btn-label {
             opacity: 1;
             transform: translateX(0);
             transition: opacity 0.25s ease 0.12s, transform 0.25s ease 0.12s;
         }
 
-        .action-btn:active {
+        .action-btn:not(.expanded):active {
             transform: scale(0.95);
         }
 
-        /* POPUP SETTINGS CONTAINER */
-        .setting-popup-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 550px;
-            height: 360px;
-            background: var(--card-bg);
-            border: 1px solid var(--hover-border);
+        /* ==========================================
+           EFFECT: SETTINGS PHÓNG TO THÀNH BẢNG MAIN MENU
+           ========================================== */
+        #settingBtn {
+            transform-origin: top right;
+        }
+
+        #settingBtn.expanded {
+            width: 550px !important;
+            max-width: 550px !important;
+            height: 360px !important;
             border-radius: 20px;
+            cursor: default;
+            border-color: var(--hover-border);
             box-shadow: 0 12px 35px var(--shadow-color), 0 0 15px var(--hover-glow);
-            z-index: 1001;
+            align-items: stretch;
+            justify-content: stretch;
+        }
+
+        #settingBtn.expanded > .btn-icon-wrapper,
+        #settingBtn.expanded > .btn-label {
+            display: none !important;
+        }
+
+        .setting-content-inner {
+            display: none;
+            width: 100%;
+            height: 100%;
             padding: 16px 20px;
-            display: flex;
             flex-direction: column;
             gap: 12px;
             opacity: 0;
-            visibility: hidden;
-            transform: scale(0.8);
-            transform-origin: top right;
-            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.3s;
+            transition: opacity 0.25s ease 0.1s;
         }
 
-        .setting-popup-container.active {
+        #settingBtn.expanded .setting-content-inner {
+            display: flex;
             opacity: 1;
-            visibility: visible;
-            transform: scale(1);
         }
 
         .setting-header {
@@ -198,10 +220,7 @@
             background-color: var(--hover-bg);
         }
 
-        .close-setting-btn svg {
-            stroke: var(--text-main);
-        }
-
+        /* BỐ CỤC MAIN MENU TRONG SETTING */
         .setting-main-container {
             display: flex;
             gap: 16px;
@@ -266,11 +285,13 @@
             font-size: 13px;
         }
 
+        /* THEME TOGGLE ICON */
         #themeToggle .icon-sun { display: block; }
         #themeToggle .icon-moon { display: none; }
         body.dark-mode #themeToggle .icon-sun { display: none; }
         body.dark-mode #themeToggle .icon-moon { display: block; }
 
+        /* SEARCH BOX */
         .search-box {
             display: flex;
             align-items: center;
@@ -316,6 +337,7 @@
 
         .search-input::placeholder { color: var(--text-sub); }
 
+        /* MAIN CONTAINER & CARDS */
         .main-container {
             width: 100%;
             max-width: 900px;
@@ -448,9 +470,9 @@
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .sidebar { width: 100%; }
-            .setting-popup-container {
-                width: calc(100vw - 40px);
-                right: 20px;
+            #settingBtn.expanded {
+                width: calc(100vw - 40px) !important;
+                max-width: 100% !important;
             }
         }
     </style>
@@ -469,7 +491,7 @@
         <span class="btn-label">Login</span>
     </a>
 
-    <button type="button" class="action-btn" id="settingBtn" aria-label="Settings">
+    <div class="action-btn" id="settingBtn" role="button" aria-label="Settings">
         <div class="btn-icon-wrapper">
             <svg class="icon-gear" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="3"></circle>
@@ -477,7 +499,56 @@
             </svg>
         </div>
         <span class="btn-label">Settings</span>
-    </button>
+
+        <div class="setting-content-inner">
+            <div class="setting-header">
+                <h4>
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    Settings
+                </h4>
+                <button type="button" class="close-setting-btn" id="closeSettingBtn" aria-label="Close Settings">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- CẤU TRÚC MAIN MENU BÊN TRONG SETTING -->
+            <div class="setting-main-container">
+                <div class="setting-sidebar">
+                    <button class="nav-btn active" data-setting-tab="st-chung">Chung</button>
+                    <button class="nav-btn" data-setting-tab="st-hethong">Hệ thống</button>
+                </div>
+
+                <div class="setting-content-area">
+                    <div id="st-chung" class="setting-tab-content active">
+                        <div class="setting-item">
+                            <span>Thông báo</span>
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="setting-item">
+                            <span>Tự động phát</span>
+                            <input type="checkbox">
+                        </div>
+                    </div>
+
+                    <div id="st-hethong" class="setting-tab-content">
+                        <div class="setting-item">
+                            <span>Ngôn ngữ</span>
+                            <select>
+                                <option>Tiếng Việt</option>
+                                <option>English</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <button id="themeToggle" class="action-btn" aria-label="Toggle Theme">
         <div class="btn-icon-wrapper">
@@ -501,226 +572,181 @@
 
 </div>
 
-<!-- SETTINGS POPUP MODAL -->
-<div class="setting-popup-container" id="settingModal">
-    <div class="setting-header">
-        <h4>
-            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-            Settings
-        </h4>
-        <button type="button" class="close-setting-btn" id="closeSettingBtn" aria-label="Close Settings">
-            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
+    <div id="logo-container"></div>
+
+    <script>
+        fetch('logo.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('logo-container').innerHTML = data;
+                const brandLogo = document.querySelector('.brand-logo');
+                if (brandLogo) {
+                    setTimeout(() => {
+                        brandLogo.classList.remove('intro-animation');
+                    }, 2200);
+                }
+            })
+            .catch(err => console.error('Lỗi khi tải logo:', err));
+    </script>
+
+    <div class="search-box">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="search-input" placeholder="Tìm kiếm...">
     </div>
 
-    <div class="setting-main-container">
-        <div class="setting-sidebar">
-            <button class="nav-btn active" data-setting-tab="st-chung">Chung</button>
-            <button class="nav-btn" data-setting-tab="st-hethong">Hệ thống</button>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-title">Categories</div>
+            <button class="nav-btn active" data-tab="tab-web">Web</button>
+            <button class="nav-btn" data-tab="tab-tool">Tool</button>
+            <button class="nav-btn" data-tab="tab-line3">Line 3</button>
+            <button class="nav-btn" data-tab="tab-line4">Line 4</button>
         </div>
 
-        <div class="setting-content-area">
-            <div id="st-chung" class="setting-tab-content active">
-                <div class="setting-item">
-                    <span>Thông báo</span>
-                    <input type="checkbox" checked>
-                </div>
-                <div class="setting-item">
-                    <span>Tự động phát</span>
-                    <input type="checkbox">
+        <div class="content-area">
+            <div id="tab-web" class="tab-content active">
+                
+                <a href="https://icehtml.github.io/TrungAnh/" target="_blank" class="item-card">
+                    <img src="images (1).jpg" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Trung Ruồi Béo</h3>
+                        <p>Web tổng hợp tất cả thông tin và các bài hát của Thắng và Ngọt do fan làm</p>
+                    </div>
+                </a>
+                
+                <a href="https://www.nhaccuatui.com/" target="_blank" class="item-card">
+                    <img src="unnamed (1).png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>NCT - NhacCuaTui</h3>
+                        <p>Nơi cung cấp nhạc uy tín, miễn phí và đầy đủ nhất do ng Việt Nam làm</p>
+                    </div>
+                </a>
+
+            </div>
+
+            <div id="tab-tool" class="tab-content">
+                
+                <a href="tachanh.html" class="item-card">
+                    <img src="Logo.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Tách ảnh</h3>
+                        <p>Công cụ giúp bạn tách các phần trong ảnh ra bằng AI(beta)</p>
+                    </div>
+                </a>
+                
+            </div>
+
+            <div id="tab-line3" class="tab-content">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 4 (Line 3)</h3>
+                        <p>Nội dung danh sách thuộc mục Line 3</p>
+                    </div>
                 </div>
             </div>
 
-            <div id="st-hethong" class="setting-tab-content">
-                <div class="setting-item">
-                    <span>Ngôn ngữ</span>
-                    <select>
-                        <option>Tiếng Việt</option>
-                        <option>English</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="logo-container"></div>
-
-<script>
-    fetch('logo.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('logo-container').innerHTML = data;
-            const brandLogo = document.querySelector('.brand-logo');
-            if (brandLogo) {
-                setTimeout(() => {
-                    brandLogo.classList.remove('intro-animation');
-                }, 2200);
-            }
-        })
-        .catch(err => console.error('Lỗi khi tải logo:', err));
-</script>
-
-<div class="search-box">
-    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-    <input type="text" class="search-input" placeholder="Tìm kiếm...">
-</div>
-
-<div class="main-container">
-    <div class="sidebar">
-        <div class="sidebar-title">Categories</div>
-        <button class="nav-btn active" data-tab="tab-web">Web</button>
-        <button class="nav-btn" data-tab="tab-tool">Tool</button>
-        <button class="nav-btn" data-tab="tab-line3">Line 3</button>
-        <button class="nav-btn" data-tab="tab-line4">Line 4</button>
-    </div>
-
-    <div class="content-area">
-        <div id="tab-web" class="tab-content active">
-            <a href="https://icehtml.github.io/TrungAnh/" target="_blank" class="item-card">
-                <img src="images (1).jpg" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Trung Ruồi Béo</h3>
-                    <p>Web tổng hợp tất cả thông tin và các bài hát của Thắng và Ngọt do fan làm</p>
-                </div>
-            </a>
-            
-            <a href="https://www.nhaccuatui.com/" target="_blank" class="item-card">
-                <img src="unnamed (1).png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>NCT - NhacCuaTui</h3>
-                    <p>Nơi cung cấp nhạc uy tín, miễn phí và đầy đủ nhất do ng Việt Nam làm</p>
-                </div>
-            </a>
-        </div>
-
-        <div id="tab-tool" class="tab-content">
-            <a href="tachanh.html" class="item-card">
-                <img src="Logo.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Tách ảnh</h3>
-                    <p>Công cụ giúp bạn tách các phần trong ảnh ra bằng AI(beta)</p>
-                </div>
-            </a>
-        </div>
-
-        <div id="tab-line3" class="tab-content">
-            <div class="item-card">
-                <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Name 4 (Line 3)</h3>
-                    <p>Nội dung danh sách thuộc mục Line 3</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-line4" class="tab-content">
-            <div class="item-card">
-                <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
-                <div class="item-info">
-                    <h3>Name 5 (Line 4)</h3>
-                    <p>Nội dung danh sách thuộc mục Line 4</p>
+            <div id="tab-line4" class="tab-content">
+                <div class="item-card">
+                    <img src="Logo - 1 - Edited.png" alt="Icon" class="item-icon" onerror="this.src='unnamed.png'">
+                    <div class="item-info">
+                        <h3>Name 5 (Line 4)</h3>
+                        <p>Nội dung danh sách thuộc mục Line 4</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // DARK MODE
-    const themeToggleBtn = document.getElementById("themeToggle");
-    const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
-    const savedTheme = localStorage.getItem("theme");
+    <script>
+        // DARK MODE
+        const themeToggleBtn = document.getElementById("themeToggle");
+        const modeText = themeToggleBtn ? themeToggleBtn.querySelector(".mode-text") : null;
+        const savedTheme = localStorage.getItem("theme");
 
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        if (modeText) modeText.textContent = "Dark";
-    } else {
-        if (modeText) modeText.textContent = "Light";
-    }
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            if (modeText) modeText.textContent = "Dark";
+        } else {
+            if (modeText) modeText.textContent = "Light";
+        }
 
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            const isDark = document.body.classList.contains("dark-mode");
-            if (modeText) {
-                modeText.textContent = isDark ? "Dark" : "Light";
-            }
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-        });
-    }
-
-    // NÚT MỞ VÀ ĐÓNG BẢNG SETTING
-    const settingBtn = document.getElementById('settingBtn');
-    const settingModal = document.getElementById('settingModal');
-    const closeSettingBtn = document.getElementById('closeSettingBtn');
-
-    if (settingBtn && settingModal) {
-        settingBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingModal.classList.toggle('active');
-        });
-
-        if (closeSettingBtn) {
-            closeSettingBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                settingModal.classList.remove('active');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener("click", () => {
+                document.body.classList.toggle("dark-mode");
+                const isDark = document.body.classList.contains("dark-mode");
+                if (modeText) {
+                    modeText.textContent = isDark ? "Dark" : "Light";
+                }
+                localStorage.setItem("theme", isDark ? "dark" : "light");
             });
         }
 
-        document.addEventListener('click', (e) => {
-            if (!settingModal.contains(e.target) && !settingBtn.contains(e.target)) {
-                settingModal.classList.remove('active');
+        // XỬ LÝ NÚT SETTING PHÓNG TO
+        const settingBtn = document.getElementById('settingBtn');
+        const closeSettingBtn = document.getElementById('closeSettingBtn');
+
+        if (settingBtn) {
+            settingBtn.addEventListener('click', () => {
+                if (!settingBtn.classList.contains('expanded')) {
+                    settingBtn.classList.add('expanded');
+                }
+            });
+
+            if (closeSettingBtn) {
+                closeSettingBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    settingBtn.classList.remove('expanded');
+                });
             }
+
+            document.addEventListener('click', (e) => {
+                if (settingBtn.classList.contains('expanded') && !settingBtn.contains(e.target)) {
+                    settingBtn.classList.remove('expanded');
+                }
+            });
+        }
+
+        // TAB INNER SETTINGS
+        const settingNavBtns = document.querySelectorAll('.setting-sidebar .nav-btn');
+        const settingTabContents = document.querySelectorAll('.setting-content-area .setting-tab-content');
+
+        settingNavBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                settingNavBtns.forEach(b => b.classList.remove('active'));
+                settingTabContents.forEach(c => c.classList.remove('active'));
+
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-setting-tab');
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
         });
-    }
 
-    // CHUYỂN TAB BÊN TRONG BẢNG SETTING
-    const settingNavBtns = document.querySelectorAll('.setting-sidebar .nav-btn');
-    const settingTabContents = document.querySelectorAll('.setting-content-area .setting-tab-content');
+        // TAB SIDEBAR MAIN MENU
+        const navButtons = document.querySelectorAll('.main-container .sidebar .nav-btn');
+        const tabContents = document.querySelectorAll('.main-container .content-area .tab-content');
 
-    settingNavBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            settingNavBtns.forEach(b => b.classList.remove('active'));
-            settingTabContents.forEach(c => c.classList.remove('active'));
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
 
-            this.classList.add('active');
-            const targetId = this.getAttribute('data-setting-tab');
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+                this.classList.add('active');
+                const targetTabId = this.getAttribute('data-tab');
+                const targetContent = document.getElementById(targetTabId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
         });
-    });
-
-    // CHUYỂN TAB BÊN NGOÀI MAIN MENU
-    const navButtons = document.querySelectorAll('.main-container .sidebar .nav-btn');
-    const tabContents = document.querySelectorAll('.main-container .content-area .tab-content');
-
-    navButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-
-            this.classList.add('active');
-            const targetTabId = this.getAttribute('data-tab');
-            const targetContent = document.getElementById(targetTabId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        });
-    });
-</script>
+    </script>
 
 </body>
 </html>
